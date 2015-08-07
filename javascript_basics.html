@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Javascript Basics</title>
+<meta name="description" content="EEWeb Tutorial">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="assets/reveal.js/css/reveal.css">
+<link rel="stylesheet" href="assets/reveal.js/css/theme/black.css" id="theme">
+
+<!-- Code syntax highlighting -->
+<link rel="stylesheet" href="assets/reveal.js/lib/css/zenburn.css">
+
+<!-- Custom overrides -->
+<link rel="stylesheet" href="assets/css/overrides.css">
+
+<!--[if lt IE 9]>
+<script src="assets/reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<!--
+		//
+		// Intro
+		//
+		//-->
+		<section>
+		    <h1>Javascript Basics</h1>
+			<p>
+				Overview to Javacript Basics
+			<p>
+		</section>
+
+        <section>
+	        <section>
+	            <h2>What is Javascript?</h2>
+				<br />
+	            <p>
+					JavaScript, also known as ECMAScript (the untrademarked name used for the standard), is a dynamic programming language.
+					<br>
+					It is most commonly used as part of web browsers, whose implementations allow client-side scripts to interact with the user, control the browser, communicate asynchronously, and alter the document content that is displayed.
+	            </p>
+	        </section>
+
+	        <section>
+	            <h2>Major Implementations</h2>
+	            <br>
+	            <table>
+	            <tr>
+	            	<th>Implementation</th>
+	            	<th>Applications</th>
+	            	<th>ECMAScript Edition</th>
+	            </tr>
+	            <tr>
+	            	<td>SpiderMonkey</td>
+	            	<td>Firefox, Adobe Acrobat</td>
+	            	<td>5.1 -- 6,7</td>
+	            </tr>
+	            <tr>
+	            	<td>V8</td>
+	            	<td>Chrome, Node.js</td>
+	            	<td>5.1 -- 6</td>
+	            </tr>
+	            <tr>
+	            	<td>Nitro</td>
+	            	<td>Safari</td>
+	            	<td>5.1</td>
+	            </tr>
+	            <tr>
+	            	<td>JScript</td>
+	            	<td>Internet Explorer</td>
+	            	<td>5.1</td>
+	            </tr>
+	            </table>
+	        </section>
+        </section>
+
+		<!--
+		//
+		// Basics
+		//
+		//-->
+		<section>
+		    <h1>Syntax Basics</h1>
+			<p>
+				Understanding statements, variable naming, whitespace, and other basic JavaScript syntax.
+			<p>
+		</section>
+
+        <section>
+	        <section>
+	            <p>A simple variable declaration</p>
+	            <pre>
+	            	<code>
+var foo = 'hello world';	            	
+	            	</code>
+	            </pre>
+
+	            <p>Parentheses indicate precedence</p>
+	            <pre>
+	            	<code>
+2 * 3 + 5;    // returns 11; multiplication happens first
+2 * (3 + 5);  // returns 16; addition happens first
+	            	</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	            <p>Tabs enhance readability, but have no special meaning</p>
+	            <pre>
+	            	<code>
+var foo = function() {
+    console.log('hello');
+};	            	
+					</code>
+	            </pre>
+
+	            <p>Concatenation</p>
+	            <pre>
+	            	<code>
+var foo = 'hello';
+
+var bar = 'world';
+
+console.log(foo + ' ' + bar); // 'hello world'
+					</code>
+	            </pre>
+	        </section>
+	    </section>
+
+		<section>
+		    <h2>Operations on Numbers &amp; Strings</h2>
+		</section>
+
+        <section>
+	        <section>
+	            <p>In JavaScript, numbers and strings will occasionally behave in ways you might not expect.</p>
+
+	            <br>
+	            <p>Addition vs. concatenation</p>
+	            <pre>
+	            	<code>
+var foo = 1;
+var bar = '2';
+
+console.log(foo + bar);  // 12. uh oh	            	
+					</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	        	<p>Forcing a string to act as a number</p>
+	            <pre>
+	            	<code>
+var foo = 1;
+var bar = '2';
+
+// coerce the string to a number
+console.log(foo + Number(bar));  // 3
+
+// same as above
+console.log(foo + parseInt(bar)); // 3
+
+// same as above
+console.log(foo + +bar); // 3  (using the unary-plus operator)
+					</code>
+	            </pre>
+	        </section>
+	    </section>
+
+		<section>
+		    <h2>Operators</h2>
+		</section>
+
+        <section>
+	        <section>
+	        	<h2>Logical Operators</h2>
+	        	<br>
+	            <p>Logical operators allow you to evaluate a series of operands using AND and OR operations.</p>
+
+	            <pre>
+	            	<code>
+var foo = 1;
+var bar = 0;
+var baz = 2;
+
+foo || bar;   // returns 1, which is true
+bar || foo;   // returns 1, which is true
+
+foo && bar;   // returns 0, which is false
+foo && baz;   // returns 2, which is true
+baz && foo;   // returns 1, which is true					
+					</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	        	<h2>Comparison Operators</h2>
+	            <p>Comparison operators allow you to test whether values are equivalent or whether values are identical.</p>
+
+	            <pre>
+	            	<code>var foo = 1;
+var bar = 0;
+var baz = '1';
+var bim = 2;
+
+foo == bar;   // returns false
+foo != bar;   // returns true
+foo == baz;   // returns true; careful!
+
+foo === baz;             // returns false
+foo !== baz;             // returns true
+foo === parseInt(baz);   // returns true
+
+foo > bim;    // returns false
+bim > baz;    // returns true
+foo <= baz;   // returns true		</code>
+	            </pre>
+	        </section>
+	    </section>
+
+		<!--
+		//
+		// Objects
+		//
+		//-->
+		<section>
+		    <h1>Objects</h1>
+			<p>
+				Objects contain one or more key-value pairs. The key portion can be any string. The value portion can be any type of value: a number, a string, an array, a function, or even another object.
+			<p>
+			<p>
+				<i>Note: When one of these values is a function, it’s called a method of the object. Otherwise, they are called properties.</i>
+			</p>
+		</section>
+
+        <section>
+	        <section>
+	            <p>As it turns out, nearly everything in JavaScript is an object — arrays, functions, numbers, even strings — and they all have properties and methods.</p>
+	            <pre>
+	            	<code>
+var myObject = {
+    sayHello : function() {
+        console.log('hello');
+    },
+    myName : 'Django Reinhardt'
+};
+myObject.sayHello();            // logs 'hello'
+console.log(myObject.myName);   // logs 'Django Reinhardt'
+	            	</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	        	<p>When creating object literals, you should note that the key portion of each key-value pair can be written as any valid JavaScript identifier,<br>a string (wrapped in quotes) or a number:
+	        	</p>
+
+	        	<pre>
+	        		<code>
+var myObject = {
+    validIdentifier: 123,
+    'some string': 456,
+    99999: 789
+};
+	        		</code>
+	        	</pre>
+	        </section>
+	    </section>
+
+		<!--
+		//
+		// Functions
+		//
+		//-->
+		<section>
+		    <h1>Functions</h1>
+			<p>
+				Functions contain blocks of code that need to be executed repeatedly. Functions can take zero or more arguments, and can optionally return a value.
+			<p>
+		</section>
+
+        <section>
+	        <section>
+	            <p>A functions can be created in a variety of ways:</p>
+
+	            <b>Function Declaration</b>
+	            <pre>
+	            	<code>
+function foo() { /* do something */ }
+	            	</code>
+	            </pre>
+
+	            <b>Named Function Expression</b>
+	            <pre>
+	            	<code>
+var foo = function() { /* do something */ }
+	            	</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	        	<p>A simple function</p>
+	        	<pre>
+	        		<code>
+var greet = function(person, greeting) {
+    var text = greeting + ', ' + person;
+    console.log(text);
+};
+greet('Django Reinhardt', 'Hello');
+	        		</code>
+	        	</pre>
+
+	        	<p>A function that returns a value</p>
+	        	<pre>
+	        		<code>
+var greet = function(person, greeting) {
+    var text = greeting + ', ' + person;
+    return text;
+};
+
+console.log(greet('Rebecca','hello'));
+	        		</code>
+	        	</pre>
+	        </section>
+
+	        <section>
+	        	<p>A function that returns another function</p>
+	        	<pre>
+	        		<code>
+var greet = function(person, greeting) {
+    var text = greeting + ', ' + person;
+    return function() { console.log(text); };
+};
+
+
+var greeting = greet('Rebecca', 'Hello');
+greeting();
+	        		</code>
+	        	</pre>
+	        </section>
+
+	        <section>
+	        	<h3>Self-Executing Anonymous Functions</h3>
+
+	        	<br>
+	        	<p>A common pattern in JavaScript is the self-executing anonymous function. This pattern creates a function expression and then immediately executes the function.</p>
+	        	<pre>
+	        		<code>
+(function(){
+    var foo = 'Hello world';
+})();
+
+
+console.log(foo);   // undefined!
+	        		</code>
+	        	</pre>
+	        </section>
+
+	        <section>
+	        	<h3>Functions as Arguments</h3>
+
+	        	<br>
+	        	<p>Passing an anonymous function as an argument.</p>
+	        	<pre>
+	        		<code>
+var myFn = function(fn) {
+    var result = fn();
+    console.log(result);
+};
+
+myFn(function() { return 'hello world'; });   // logs 'hello world
+	        		</code>
+	        	</pre>
+	        </section>
+
+	        <section>
+	        	<p>Passing an anonymous function as an argument.</p>
+	        	<pre>
+	        		<code>
+var myFn = function(fn) {
+    var result = fn();
+    console.log(result);
+};
+
+var myOtherFn = function() {
+    return 'hello world';
+};
+
+myFn(myOtherFn);   // logs 'hello world'
+	        		</code>
+	        	</pre>
+	        </section>
+	    </section>
+
+		<!--
+		//
+		// Scope
+		//
+		//-->
+		<section>
+		    <h1>Scopes</h1>
+			<p>
+				"Scope" refers to the variables that are available to a piece of code at a given time. A lack of understanding of scope can lead to frustrating debugging experiences.
+			<p>
+		</section>
+
+        <section>
+	        <section>
+	            <p>When a variable is declared inside of a function using the var keyword, it is only available to code inside of that function — code outside of that function cannot access the variable. On the other hand, functions defined inside that function will have access to to the declared variable.</p>
+	        </section>
+
+	        <section>
+	        	<p>Functions have access to variables defined<br>in the same scope</p>
+	            <pre>
+	            	<code>
+var foo = 'hello';
+
+var sayHello = function() {
+    console.log(foo);
+};
+
+sayHello();         // logs 'hello'
+console.log(foo);   // also logs 'hello'
+	            	</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	        	<p>Code outside the scope in which a variable was defined does not have access to the variable</p>
+	            <pre>
+	            	<code>
+var sayHello = function() {
+    var foo = 'hello';
+    console.log(foo);
+};
+
+sayHello();         // logs 'hello'
+console.log(foo);   // doesn't log anything
+	            	</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	        	<p>Variables with the same name can exist in different scopes with different values</p>
+	            <pre>
+	            	<code>
+var foo = 'world';
+
+var sayHello = function() {
+    var foo = 'hello';
+    console.log(foo);
+};
+
+sayHello();         // logs 'hello'
+console.log(foo);   // logs 'world'
+	            	</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	        	<p>Scope insanity</p>
+	            <pre>
+	            	<code>// a self-executing anonymous function
+(function() {
+    var baz = 1;
+    var bim = function() { alert(baz); };
+    bar = function() { alert(baz); };
+})();
+
+console.log(baz);  // baz is not defined outside of the function
+bar();  // bar is defined outside of the anonymous function
+        // because it wasn't declared with var; furthermore,
+        // because it was defined in the same scope as baz,
+        // it has access to baz even though other code
+        // outside of the function does not
+
+bim();  // bim is not defined outside of the anonymous function,
+        // so this will result in an error</code>
+	            </pre>
+	        </section>
+	    </section>
+
+		<!--
+		//
+		// References
+		//
+		//-->
+		<section>
+		    <h3>References</h3>
+		    <br>
+		    <ul>
+		    	<li>https://autotelicum.github.io/Smooth-CoffeeScript/literate/js-intro.html</li>
+		    </ul>
+		</section>
+    </div>
+</div>
+
+<script src="assets/reveal.js/lib/js/head.min.js"></script>
+<script src="assets/reveal.js/js/reveal.js"></script>
+<script>
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	history: true,
+	center: true,
+	transition: 'fade', // none/fade/slide/convex/concave/zoom
+	// Optional reveal.js plugins
+	dependencies: [
+		{ src: 'assets/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: 'assets/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'assets/reveal.js/plugin/zoom-js/zoom.js', async: true },
+		{ src: 'assets/reveal.js/plugin/notes/notes.js', async: true }
+	]
+});
+
+</script>
+
+</body>
+</html>

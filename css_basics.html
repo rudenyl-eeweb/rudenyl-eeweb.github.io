@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>EEWeb Tutorial</title>
+<meta name="description" content="EEWeb Tutorial">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="assets/reveal.js/css/reveal.css">
+<link rel="stylesheet" href="assets/reveal.js/css/theme/black.css" id="theme">
+
+<!-- Code syntax highlighting -->
+<link rel="stylesheet" href="assets/reveal.js/lib/css/zenburn.css">
+
+<!-- Custom overrides -->
+<link rel="stylesheet" href="assets/css/overrides.css">
+
+<!--[if lt IE 9]>
+<script src="assets/reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<!--
+		//
+		// Intro
+		//
+		//-->
+		<section>
+		    <h1>CSS Basics</h1>
+			<p>
+				Fundamentals to cascading style sheets development
+			<p>
+		</section>
+
+        <section>
+	        <section>
+	            <h2>What is CSS</h2>
+				<br />
+	            <p>
+					A CSS (cascading style sheet) file allows you to separate your web sites (X)HTML content from it’s style. As always you use your (X)HTML file to arrange the content, but all of the presentation (fonts, colors, background, borders, text formatting, link effects & so on…) are accomplished within a CSS.
+					<br />
+					At this point you have some choices of how to use the CSS, either internally or externally.
+	            </p>
+	        </section>
+
+	        <section>
+	            <h2>Internal Stylesheet</h2>
+				<br />
+				<p>
+					First we will explore the internal method. This way you are simply placing the CSS code within the <head></head> tags of each (X)HTML file you want to style with the CSS. The format for this is shown in the example below.
+				</p>
+				<pre>
+					<code>
+&lt;head>
+&lt;title>&lt;title>
+&lt;style type="text/css">
+...styling here...
+&lt;/style>
+&lt;/head>
+&lt;body>
+					</code>
+				</pre>
+	        </section>
+
+	        <section>
+	        	<p>
+					With this method each (X)HTML file contains the CSS code needed to style the page. 
+					<br />
+					Meaning that any changes you want to make to one page, will have to be made to all. This method can be good if you need to style only one page, or if you want different pages to have varying styles.
+	        	</p>
+	        </section>
+
+	        <section>
+	        	<h2>External Stylesheet</h2>
+	        	<br />
+	        	<p>
+					An external CSS file can be created with any text or HTML editor such as “Notepad” or “Dreamweaver”. A CSS file contains no (X)HTML, only CSS with the .css file extension.
+				</p>
+				<pre>
+					<code>
+&lt;link rel=”stylesheet” type=”text/css” href="/path/to/stylesheet.css" />
+					</code>
+				</pre>
+				<p>Or you can also use the @import method as shown below</p>
+				<pre>
+					<code>
+&lt;style type=”text/css”>@import url(/path/to/stylesheet.css)</style>
+	        		</code>
+	        	</pre>
+	        </section>
+
+	        <section>
+	        	<p>Either of these methods are achieved by placing one or the other in the head section as shown in example below.</p>
+	        	<pre>
+	        		<code>
+&lt;head>
+&lt;title>&lt;/title>
+&lt;link rel="stylesheet" type="text/css" href="/path/to/stylesheet.css" />
+&lt;/head>
+&lt;body>
+					</code>
+				</pre>
+
+				<p>or</p>
+				<pre>
+					<code>
+&lt;head>
+&lt;title>&lt;/title>
+&lt;style type=”text/css”> @import url(/path/to/stylesheet.css) </style>
+&lt;/head>
+&lt;body>	        	
+					</code>
+	        	</pre>
+	        </section>
+
+	        <section style="text-align:left;">
+	        	<p>
+					By using an external style sheet, all of your files link to one CSS file in order to style the pages. This means, that if you need to alter the design of all your pages, you only need to edit one .css file to make global changes to your entire website.
+				</p>
+
+				Here are a few reasons this is better.
+
+				<ul>
+					<li>Easier Maintenance</li>
+					<li>Reduced File Size</li>
+					<li>Reduced Bandwidth</li>
+					<li>Improved Flexibility</li>
+					<li>Are you getting the idea? It’s really cool.</li>
+				</ul>
+	        </section>
+
+        	<section>
+        		<h2>Inline Styles</h2>
+        		<br/>
+        		<p>
+					I have not mentioned them until now because in a way they defeat the purpose of using CSS in the first place. Inline styles are defined right in the (X)HTML file along side the element you want to style. See example below.
+				</p>
+
+				<pre>
+					<code>
+&lt;p style=”color: #ff0000;”>Some red text&lt;/p>
+					</code>
+        		</pre>
+        	</section>
+        </section>
+    </div>
+</div>
+
+<script src="assets/reveal.js/lib/js/head.min.js"></script>
+<script src="assets/reveal.js/js/reveal.js"></script>
+<script>
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	history: true,
+	center: true,
+	transition: 'fade', // none/fade/slide/convex/concave/zoom
+	// Optional reveal.js plugins
+	dependencies: [
+		{ src: 'assets/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: 'assets/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'assets/reveal.js/plugin/zoom-js/zoom.js', async: true },
+		{ src: 'assets/reveal.js/plugin/notes/notes.js', async: true }
+	]
+});
+
+</script>
+
+</body>
+</html>

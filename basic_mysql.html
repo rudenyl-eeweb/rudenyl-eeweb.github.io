@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Basic MySQL</title>
+<meta name="description" content="EEWeb Tutorial">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="assets/reveal.js/css/reveal.css">
+<link rel="stylesheet" href="assets/reveal.js/css/theme/black.css" id="theme">
+
+<!-- Code syntax highlighting -->
+<link rel="stylesheet" href="assets/reveal.js/lib/css/zenburn.css">
+
+<!-- Custom overrides -->
+<link rel="stylesheet" href="assets/css/overrides.css">
+
+<!--[if lt IE 9]>
+<script src="assets/reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<!--
+		//
+		// Intro
+		//
+		//-->
+		<section>
+		    <h1>Basic MySQL</h1>
+		</section>
+
+		<section>
+			<p>
+				MySQL is an open source database management software that helps users store, organize, and retrieve data. It is a very powerful program with a lot of flexibility—this tutorial will provide the simplest introduction to MySQL
+			<p>
+		</section>
+
+        <section>
+	        <section>
+	            <h2>How to Access the MySQL shell</h2>
+				<br />
+	            <p>
+					Once you have MySQL installed on your droplet, you can access the MySQL shell by typing the following command into terminal:
+	            </p>
+	            <pre>
+	            	<code>
+mysql -u&lt;username> -p
+
+mysql -u &lt;username>
+	            	</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	        	<p>
+					Two points to keep in mind:
+					<br>
+					<br>
+					<ul>
+						<li>All MySQL commands end with a semicolon; if the phrase does not end with a semicolon, the command will not execute.</li>
+						<li>Also, although it is not required, MySQL commands are usually written in uppercase and databases, tables, usernames, or text are in lowercase to make them easier to distinguish. However, the MySQL command line is not case sensitive.</li>
+					</ul>
+	        	</p>
+	        </section>
+		</section>
+
+        <section>
+	        <section>
+	            <h2>Create/Delete Database</h2>
+				<br />
+	            <p>
+					MySQL organizes its information into databases; each one can hold tables with specific data. You can quickly check what databases are available by typing:
+	            </p>
+	            <pre>
+	            	<code>
+SHOW DATABASES;
+					</code>
+	            </pre>
+	        </section>
+	        <section>
+	            <p>The output screen should look something like this:</p>
+	            <pre>
+	            	<code>
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+4 rows in set (0.01 sec)
+	            	</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	            <p>Creating a database is very easy:</p>
+	            <pre>
+	            	<code>
+CREATE DATABASE database_name;
+					</code>
+	            </pre>
+
+	            <br>
+	            <p>In MySQL, the phrase most often used to delete objects is Drop. You would delete a MySQL database with this command:</p>
+	            <pre>
+	            	<code>
+DROP DATABASE database_name;
+					</code>
+	            </pre>
+	        </section>
+		</section>
+
+        <section>
+	        <section>
+	            <h2>How to Access a MySQL Database</h2>
+				<br />
+	            <p>
+					Once we have a new database, we can begin to fill it with information. The first step is to create a new table within the larger database. Let’s open up the database we want to use:
+	            </p>
+	            <pre>
+	            	<code>
+USE database_name;
+					</code>
+	            </pre>
+	        </section>
+	        <section>
+	            <p>In the same way that you could check the available databases, you can also see an overview of the tables that the database contains.</p>
+	            <pre>
+	            	<code>
+SHOW tables;
+	            	</code>
+	            </pre>
+
+	            <p>If its a new database, MySQL has nothing to show, and you will get a message that says, "Empty set"</p>
+	        </section>
+		</section>
+
+		<!--
+		//
+		// Basic manipulations
+		//
+		//-->
+		<section>
+		    <h1>MySQL Table</h1>
+		</section>
+
+		<section>
+			<section>
+				<p>
+					A table is a collection of related data held in a structured format within a database. It consists of fields (columns), and rows.
+				</p>
+				<p>In relational databases and flat file databases, a table is a set of data elements (values) using a model of vertical columns (which are identified by their name) and horizontal rows, the cell being the unit where a row and column intersect. A table has a specified number of columns, but can have any number of rows. Each row is identified by one or more values appearing in a particular column subset. The columns subset which uniquely identifies a row is called the primary key.
+				<p>
+			</section>
+
+			<section>
+				<p>Creating a simple table</p>
+
+				<pre>
+					<code>
+CREATE TABLE sample_table (
+	`id` INT NOT NULL AUTO_INCREMENT, 
+	`name` VARCHAR(20),
+	`date_added` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`published` INT(1),
+
+	PRIMARY KEY(`id`),
+	UNIQUE KEY(`name`)
+);
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<p>Breaking up the table schema build commands</p>
+				<br>
+				<table>
+				<tr>
+					<th>Command</th>
+					<th>What does it do?</th>
+				</tr>
+				<tr>
+					<td>`id` INT NOT NULL AUTO_INCREMENT</td>
+					<td>The "id" column has a command (INT NOT NULL AUTO_INCREMENT) that automatically increments after each inserts</td>
+				</tr>
+				</table>
+			</section>
+
+			<section>
+				<table>
+				<tr>
+					<th>Command</th>
+					<th>What does it do?</th>
+				</tr>
+				<tr>
+					<td>`name` VARCHAR(20)</td>
+					<td>We are limiting our "name" column to 20 characters, more of that will be truncated to 20 chars</td>
+				</tr>
+				<tr>
+					<td>`date_added` DATETIME</td>
+					<td>Create a date and time column, a default value '0000-00-00 00:00:00' will be created if nothing is entered</td>
+				</tr>
+				</table>
+			</section>
+
+			<section>
+				<table>
+				<tr>
+					<th>Command</th>
+					<th>What does it do?</th>
+				</tr>
+				<tr>
+					<td>PRIMARY KEY(`id`)</td>
+					<td>Making "id" as our primary key for indexing purposes</td>
+				</tr>
+				<tr>
+					<td>UNIQUE KEY(`name`)</td>
+					<td>Tells our table that the "name" column is unique, any similarities. This is case-sensitive.</td>
+				</tr>
+				</table>
+			</section>
+
+			<section>
+				<h4>Display the table schema details</h4>
+				<br>
+				<pre>
+					<code>
+mysql> describe sample_table;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(20) | YES  | UNI | NULL    |                |
+| date_added | datetime    | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+					</code>
+				</pre>
+			</section>
+		</section>
+
+		<!--
+		//
+		// Data manipulations
+		//
+		//-->
+		<section>
+		    <h1>Data Manipulations</h1>
+		</section>
+
+		<section>
+			<section>
+				<h3>How to Add Information to a MySQL Table</h3>
+				<br>
+				<p>There are several ways to add data to a MySQL table</p>
+
+				<pre>
+					<code>
+INSERT INTO sample_table VALUES(null, 'John Doe', now());
+INSERT INTO sample_table SET `name`='Nat King Coool';
+INSERT INTO sample_table SET `name`='July Third', `date_added`='1990-12-01 14:15:16';
+					</code>				
+				</pre>
+			</section>
+
+			<section>
+				<h3>Display table data</h3>
+				<br>
+
+				<pre>
+					<code>
+mysql> SELECT * FROM sample_table;
++----+----------------+---------------------+
+| id | name           | date_added          |
++----+----------------+---------------------+
+|  1 | John Doe       | 2015-08-06 18:04:24 |
+|  2 | Nat King Coool | NULL                |
+|  3 | July Third     | 1990-12-01 14:15:16 |
++----+----------------+---------------------+
+3 rows in set (0.01 sec)
+					</code>				
+				</pre>
+			</section>
+		</section>
+    </div>
+</div>
+
+<script src="assets/reveal.js/lib/js/head.min.js"></script>
+<script src="assets/reveal.js/js/reveal.js"></script>
+<script>
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	history: true,
+	center: true,
+	transition: 'fade', // none/fade/slide/convex/concave/zoom
+	// Optional reveal.js plugins
+	dependencies: [
+		{ src: 'assets/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: 'assets/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'assets/reveal.js/plugin/zoom-js/zoom.js', async: true },
+		{ src: 'assets/reveal.js/plugin/notes/notes.js', async: true }
+	]
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Introduction to Flask Python Web Micro-Framework</title>
+<meta name="description" content="Introduction to Flask Python Web Micro-Framework">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="assets/reveal.js/css/reveal.css">
+<link rel="stylesheet" href="assets/reveal.js/css/theme/black.css" id="theme">
+
+<!-- Code syntax highlighting -->
+<link rel="stylesheet" href="assets/reveal.js/lib/css/zenburn.css">
+
+<!-- Custom overrides -->
+<link rel="stylesheet" href="assets/css/overrides.css">
+
+<!--[if lt IE 9]>
+<script src="assets/reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<!--
+		//
+		// Intro
+		//
+		//-->
+		<section>
+		    <h1>Flask Basics</h1>
+			<p>
+				An Introduction to Flask Python Web Micro-framework
+			<p>
+		</section>
+
+        <section>
+	        <section>
+	            <h2>What is Flask?</h2>
+				<br />
+	            <p>
+					Flask is a microframework for Python based on Werkzeug, Jinja 2 and good intentions.
+					<br />
+					<br />
+	                It's a Python web framework built with a small core and easy-to-extend philosophy.
+	            </p>
+	        </section>
+
+	        <section>
+	            <h2>What's in the box?</h2>
+				<br />
+				<ul>
+					<li>built in development server and debugger</li>
+					<li>integrated unit testing support</li>
+					<li>RESTful request dispatching</li>
+					<li>uses Jinja2 templating</li>
+					<li>support for secure cookies <i style="color:#b8b8b8;">(client side sessions)</i></li>
+					<li>100% WSGI 1.0 compliant</li>
+					<li>Unicode based</li>
+					<li>extensively documented</li>
+				</ul>
+	        </section>
+
+	        <section>
+				<h2>Show me the code!</h2>
+				<pre>
+					<code>
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+if __name__ == '__main__':
+    app.run()
+					</code>
+				</pre>
+	        </section>
+        </section>
+
+
+		<!--
+		//
+		// Installation
+		//
+		//-->
+		<section>
+			<section>
+		    	<h2>Installation</h2>
+		    </section>
+
+		    <section>
+				<h2>Linux / Mac</h2>
+				<pre>
+					<code>
+# install pip, if don't exists
+$ sudo apt-get install python-pip
+$ sudo easy_install pip               # in Mac OS X
+
+# set up virtual environment
+$ pip install virtualenv
+$ virtualenv venv
+
+# start virtual environment
+$ source venv/bin/activate
+
+# install
+(venv) $ pip install Flask
+					</code>
+				</pre>
+		    </section>
+
+		    <section>
+				<h2>Windows</h2>
+				<pre>
+					<code>
+# install pip, if don't exists
+PS C:\> wget https://bootstrap.pypa.io/get-pip.py -Outfile get-pip.py
+
+# set up virtual environment
+PS C:\> pip install virtualenv
+PS C:\> pip install virtualenvwrapper-powershell
+
+# start virtual environment
+PS C:\> import-module virtualenvwrapper
+PS C:\> new-virtualenvironment flask
+
+# install
+(flask)PS C:\> pip install Flask
+					</code>
+				</pre>
+		    </section>
+		</section>
+
+
+		<!--
+		//
+		// Jinj2
+		//
+		//-->
+		<section>
+			<section>
+		    	<h2>Templating</h2>
+		    </section>
+
+			<section>
+		    	<h2>Jinja2</h2>
+		    	<br />
+		    	<p>
+					Jinja2 is a text-based template engine inspired by Django's template system but provides Python-like expressions while ensuring that the templates are evaluated in a sandbox.
+					<br>
+					<br>
+					The Jinja2 template engine allows customization of tags, filters, tests, and globals. Also, unlike the Django template engine, it can call functions with arguments on objects.
+		    	</p>
+		    </section>
+
+		    <section>
+		    	<h2>Show me the code!</h2>
+
+		    	<pre>
+		    		<code>	    		
+{% extends "base_layout.html" %}
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;link type="text/css" rel="stylesheet" 
+	href="{{ url_for('static', filename='styles.css') }}" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    {% block content %}
+    	&lt;h1&gt;Hello world!&lt;/h1&gt;
+    {% endblock %}
+&lt;/body&gt;
+&lt;/html&gt;
+		    		</code>
+		    	</pre>
+		    </section>
+		</section>
+
+
+		<!--
+		//
+		// Integration
+		//
+		//-->
+		<section>
+			<section>
+		    	<h2>Hello World!</h2>
+		    </section>
+
+			<section>
+				<h2>Folder Structure</h2>
+				<pre>
+					<code>
+/your_application
+    - app.py
+    - /static
+        - styles.css
+    - templates
+        - base_layout.html
+        - home.html
+        - about.html
+					</code>
+				</pre>
+			</section>
+
+			<section>
+		    	<h2>Show me the code!</h2>
+		    	<br>
+		    	<br>
+		    	<p>
+		    		Arvin, my goodness, show me the cooooooddddeeee!!!
+		    	</p>
+		    </section>
+		</section>
+
+
+		<!--
+		//
+		// PS
+		//
+		//-->
+		<section>
+			<section>
+		    	<h2>P.S.</h2>
+		    </section>
+
+			<section>
+		    	<h2>What Flask is</h2>
+		    	<br>
+		    	<p>
+					Flask itself just bridges to Werkzeug to implement a proper WSGI application and to Jinja2 to handle templating. It also binds to a few common standard library packages such as logging. Everything else is up for extensions.	    	
+		    	</p>
+		    </section>
+
+			<section>
+		    	<h2>What Flask is Not</h2>
+		    	<br>
+		    	<p>
+					Flask will never have a database layer. It will not have a form library or anything else in that direction.	    	
+		    	</p>
+		    </section>
+		</section>
+
+		<section>
+	    	<h2>Related Literature</h2>
+	    	<br>
+	    	<p>
+	    		Flask<br><a href="http://flask.pocoo.org/">http://flask.pocoo.org/</a>
+	    	</p>
+	    	<p>
+	    		Jinja2<br><a href="http://jinja.pocoo.org/">http://jinja.pocoo.org/</a>
+	    	</p>
+	    	<p>
+	    		Cool Python Resource<br><a href="http://arvinsim.github.io/isi-python/">http://arvinsim.github.io/isi-python/</a>
+	    	</p>
+	    </section>
+    </div>
+</div>
+
+<script src="assets/reveal.js/lib/js/head.min.js"></script>
+<script src="assets/reveal.js/js/reveal.js"></script>
+<script>
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	history: true,
+	center: true,
+	transition: 'fade', // none/fade/slide/convex/concave/zoom
+	// Optional reveal.js plugins
+	dependencies: [
+		{ src: 'assets/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: 'assets/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'assets/reveal.js/plugin/zoom-js/zoom.js', async: true },
+		{ src: 'assets/reveal.js/plugin/notes/notes.js', async: true }
+	]
+});
+
+</script>
+
+</body>
+</html>

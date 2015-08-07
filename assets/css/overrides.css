@@ -1,0 +1,9 @@
+/** overrides */
+.reveal pre {
+	width: 100%;
+    box-shadow: none;
+}
+.reveal pre code {
+    padding-left: 30px;
+    padding-right: 30px;
+}
