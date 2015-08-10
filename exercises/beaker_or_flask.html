@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Beaker or Flask?</title>
+<meta name="description" content="Exercises">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="../assets/reveal.js/css/reveal.css">
+<link rel="stylesheet" href="../assets/reveal.js/css/theme/black.css" id="theme">
+
+<!-- Code syntax highlighting -->
+<link rel="stylesheet" href="../assets/reveal.js/lib/css/zenburn.css">
+
+<!-- Custom overrides -->
+<link rel="stylesheet" href="../assets/css/overrides.css">
+
+<!--[if lt IE 9]>
+<script src="../assets/reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<!--
+		//
+		// Intro
+		//
+		//-->
+		<section>
+		    <h1>Beaker or Flask?</h1>
+		</section>
+
+		<section>
+			<h3>
+				The following exercise is just a review<br />of the previousFlask tutorial
+			</h3>
+			<br>
+			<p style="text-align:left;">
+				What you need:
+			</p>
+			<ul style="width:100%;">
+				<li>a clean virtual environment</li>
+				<li>the Flask python module</li>
+				<li>your teammates</li>
+				<li>.. and snacks</li>
+			</ul>
+		</section>
+
+        <section>
+	        <section>
+	            <h2>Folder Structure</h2>
+				<br />
+	            <p>
+					Name your app "test_app". The whole app directory structure should look like below:
+	            </p>
+	            <pre>
+	            	<code>
+/test_app
+    - app.py
+    - /static
+        - style.css
+    - /templates
+        - base_layout.html
+        - index.html
+        - about_test_app.html
+        	        </code>
+	            </pre>
+	        </section>
+	    </section>
+
+		<section>
+		    <h1>Templates</h1>
+		</section>
+
+		<section>
+	        <section>
+	        	<h2>Base Layout</h2>
+	        	<br />
+	        	<p>Nothing fancy. Your base html layout should be similar below. You can do your own styling.</p>
+	        	<pre>
+	        		<code>
+&lt;!doctype html>
+&lt;html>
+&lt;head>
+&lt;link type="text/css" rel="stylesheet" 
+	href="{{ url_for('static', filename='style.css') }}" />
+&lt;/head>
+&lt;body>
+    {% block content %}
+    	<h1>Hello world!</h1>
+    {% endblock %}
+&lt;/body>
+&lt;/html>	        		
+	        		</code>
+	        	</pre>
+	        </section>
+
+	        <section>
+	        	<h2>Extending Base Layout</h2>
+	        	<br />
+
+	        	<pre>
+	        		<code>
+{% extends "base_layout.html" %}
+
+{% block content %}
+	Your HTML code here...
+{% endblock %}
+	        		</code>
+	        	</pre>
+	        </section>
+		</section>
+
+		<section>
+		    <h2>Running your App</h2>
+
+		    <p>To invoke and start your first web application, in the command line, type:</p>
+		    <pre>
+		    	<code>
+$ python app.py		    	
+		    	</code>
+		    </pre>
+		</section>
+
+		<section>
+		    <h2>Expected Output</h2>
+
+		    <p>The welcome page (default page) should display the name of your team. ie. navigating to</p>
+		    <pre>
+		    	<code>
+http://localhost:5000		    	
+		    	</code>
+		    </pre>
+		</section>
+
+		<section>
+		    <p>Will display something like below:</p>
+
+		    <img src="/exercises/assets/welcome.png" />
+		</section>
+
+		<section>
+		    <h2>Running your App</h2>
+
+		    <p>When typing from the browser the url address below:</p>
+		    <pre>
+		    	<code>
+http://localhost:5000/about	    	
+		    	</code>
+		    </pre>
+
+		    <p>.. will display your team members and a simple description of your awesome team.</p>
+		</section>
+    </div>
+</div>
+
+<script src="../assets/reveal.js/lib/js/head.min.js"></script>
+<script src="../assets/reveal.js/js/reveal.js"></script>
+<script>
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	history: true,
+	center: true,
+	transition: 'fade', // none/fade/slide/convex/concave/zoom
+	// Optional reveal.js plugins
+	dependencies: [
+		{ src: '../assets/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: '../assets/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: '../assets/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: '../assets/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: '../assets/reveal.js/plugin/zoom-js/zoom.js', async: true },
+		{ src: '../assets/reveal.js/plugin/notes/notes.js', async: true }
+	]
+});
+
+</script>
+
+</body>
+</html>
