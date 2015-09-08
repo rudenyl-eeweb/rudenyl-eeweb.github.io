@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SQLAlchemy ORM Basics</title>
+<meta name="description" content="EEWeb Tutorial">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="assets/reveal.js/css/reveal.css">
+<link rel="stylesheet" href="assets/reveal.js/css/theme/black.css" id="theme">
+
+<!-- Code syntax highlighting -->
+<link rel="stylesheet" href="assets/reveal.js/lib/css/zenburn.css">
+
+<!-- Custom overrides -->
+<link rel="stylesheet" href="assets/css/overrides.css">
+
+<!--[if lt IE 9]>
+<script src="assets/reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<!--
+		//
+		// Intro
+		//
+		//-->
+		<section>
+		    <h1>SQLAlchemy</h1>
+			<p>
+				ORM Basic Guide with SQLAlchemy / pt. 1
+			<p>
+		</section>
+
+        <section>
+	        <section>
+	            <h2>What is ORM</h2>
+				<br />
+	            <p>
+					An ORM (Object-Relational Mapping) is a tool that lets you query and manipulate data from a database using an object paradigm.
+					<br>
+					<br>
+					It's a completely ordinary library written in your language that encapsulates the code needed to manipulate the data, so you don't use SQL anymore, but directly an object of your language.
+	            </p>
+	        </section>
+
+	        <section>
+				<p>
+					As an example, consider we have an imaginary pseudo-language. We have a database for books and we want to retrieve and collect books by 'Django Reinhart'. Manually we do,
+				</p>
+				<pre>
+					<code>
+list = new Books()					
+sql = "SELECT book FROM book_table WHERE author = 'Django Reinhart'"
+data = query(sql)
+while (row = data.next()) {
+	book = new Book()
+	book.setAuthor(row.get('author'))
+	list.add(book)
+}					</code>
+				</pre>
+			</section>
+
+			<section>
+				<p>
+					With an ORM, the example pseudo-code earlier will just look like below:
+				</p>
+
+				<pre>
+					<code>
+list = BookTable.query(author="Django Reinhart");
+					</code>
+				</pre>
+
+				<p>
+					The manual, hard part is taken care automatically by the ORM.
+				</p>
+	        </section>
+	    </section>
+
+	    <section>
+        	<h1>Pros and cons</h1>
+        </section>
+
+        <section>
+	        <section>
+	        	<h2>Using an ORM save a lot of time because</h2>
+	        	<br />
+
+	        	<ul>
+	        		<li>DRY : You write your data model in only one place, it's easier to update, maintain and reuse the code</li>
+	        		<li>Lot of stuff is done automatically, from the database handling to I18N</li>
+	        		<li>Forces you to write MVC code ==> cleaner app</li>
+	        		<li>Prevents poorly formed SQL code</li>
+	        		<li>Sanitizing, using prepared statements or transactions are as easy as calling a method</li>
+	        	</ul>
+        	</section>
+
+	        <section>
+	        	<h2>Using an ORM is more flexible because</h2>
+	        	<br />
+
+	        	<ul>
+	        		<li>Fits in your natural way of coding</li>
+	        		<li>Abstracts the DB system, so you total control</li>
+	        		<li>The model is loosely binded to the rest of the app, so you can change it or use it anywhere else</li>
+	        		<li>Let you use OOP goodness like data inheritance without head ache</li>
+	        	</ul>
+        	</section>
+
+	        <section>
+	        	<h2>But ORM can be a pain </h2>
+	        	<br />
+
+	        	<ul>
+	        		<li>You have to learn it, and they are not lightweight tools</li>
+	        		<li>You have to set it up. Same problem.</li>
+	        		<li>Performances are ok for usual queries, but a SQL master will always do better with his little hands for the big dirty works.</li>
+	        		<li>It abstracts the DB. While it's ok if you know what's happening behind the scene, it's a trap for the noobs that can write very greedy statements, like a heavy hit in a for loop</li>
+	        	</ul>
+        	</section>
+        </section>
+
+	    <section>
+        	<h1>Enter<br>SQLAlchemy</h1>
+        </section>
+
+        <section>
+	        <section>
+	            <h2>What's that?</h2>
+				<br />
+	            <p>
+					SQLAlchemy is the Python SQL toolkit and ORM that gives application developers the full power and flexibility of SQL.
+					<br>
+					<br>
+					It provides a full suite of well known enterprise-level persistence patterns, designed for efficient and high-performing database access, adapted into a simple and Pythonic domain language.
+	            </p>
+	        </section>
+
+	        <section>
+	            <h2>How to Install?</h2>
+				<br />
+				<p>
+					A quick way to verify if we installed one				
+				</p>
+				<pre>
+					<code>
+>>> import sqlalchemy
+>>> sqlalchemy.__version__ #1.0.0 or latest
+				</code>
+				</pre>
+
+	            <p>
+	            	You can install SQLAlchemy the way we do with other python modules.
+	            </p>
+	            <pre>
+	            	<code>
+$ pip install sqlalchemy
+	            	</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	            <h2>Connecting to a database</h2>
+				<br />
+	            <p>
+					To connect we use create_engine():
+	            </p>
+	            <pre>
+		            <code>
+>>> from sqlalchemy import create_engine
+
+# in-memory-only SQLite
+>>> engine = create_engine('sqlite:///:memory:', echo=True)	
+
+# local SQLite
+>>> engine = create_engine('sqlite:///records.db')
+
+# MySQL
+>>> engine = create_engine('mysql://user:passwd@localhost/database')
+		            </code>
+	            </pre>
+	        </section>
+
+	        <section>
+	            <h2>Declaring a Table Map</h2>
+				<br />
+	            <p>
+					When using the ORM, the configurational process starts by describing the database tables we’ll be dealing with, and then by defining our own classes which will be mapped to those tables.
+	            </p>
+	            <p>
+					Classes mapped using the Declarative system are defined in terms of a base class which maintains a catalog of classes and tables relative to that base - this is known as the declarative base class. 
+	            </p>
+	        </section>
+
+	        <section>
+	        	<p>
+	        		Our application will usually have just one instance of this base in a commonly imported module.
+	        		<br>
+	        		<br>
+					We create the base class using the declarative_base() function, as follows:	        	
+	        	</p>
+	            <pre>
+		            <code>
+>>> from sqlalchemy.ext.declarative import declarative_base
+
+>>> Base = declarative_base()
+		            </code>
+	            </pre>
+	        </section>
+
+	        <section>
+	        	<p>
+	        		We can now extend the "base" class with our new model class, which we will then define the column names and data types.       	
+	        	</p>
+	            <pre>
+		            <code>
+>>> from sqlalchemy import Column, Integer, String
+>>> class Movie(Base):
+    __tablename__ = 'movies'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String(255), nullable=False)
+    year = Column(Integer)
+
+    def __init__(self, title, year):
+        self.title = title
+        self.year = year
+
+    def __repr__(self):
+        return "Movie({}, {})".format(self.title, self.year)</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	            <h2>Creating the Table Schema</h2>
+				<br />
+	            <p>
+					With our Movie class constructed via the Declarative system, we have defined information about our table, known as table metadata.
+	            </p>
+	            <p>
+					We can see this object by inspecting the __table__ attribute: 
+	            </p>
+	            <pre>
+		            <code>
+>>> Movie.__table__ 
+
+Table('movies', MetaData(bind=None), 
+	Column('id', Integer(), table=&lt;movies>, primary_key=True, nullable=False), 
+	Column('title', String(length=255), table=&lt;movies>, nullable=False), 
+	Column('year', Integer(), table=&lt;movies>), schema=None)
+					</code>
+	            </pre>
+	        </section>
+
+	        <section>
+	        	<p>
+					The Table object is a member of a larger collection known as MetaData. When using Declarative, this object is available using the .metadata attribute of our declarative base class.	        	
+	        	</p>
+	        	<p>
+					The MetaData is a registry which includes the ability to emit a limited set of schema generation commands to the database. As our database does not actually have a movie table present, we can use MetaData to issue CREATE TABLE statements to the database for all tables that don’t yet exist. 	        	
+	        	</p>
+	        </section>
+
+	        <section>
+	            <p>
+					To create our table, we will invoke the command:
+	            </p>
+	            <pre>
+		            <code>
+>>> Base.metadata.create_all(engine) 
+
+PRAGMA table_info("movies")
+()
+CREATE TABLE movies (
+	id INTEGER NOT NULL, 
+	title VARCHAR(255) NOT NULL, 
+	year INTEGER, 
+	PRIMARY KEY (id)
+)
+()
+COMMIT
+					</code>
+	            </pre>
+	        </section>
+	    </section>
+
+	    <section>
+        	<h1>Data Manipulation</h1>
+        </section>
+
+	    <section>
+	    	<section>
+        		<h2>Creating a Session</h2>
+        		<br>
+        		<p>
+        			The ORM's "handle" to the database is the Session. When we first set up the application, at the same level as our create_engine() statement, we define a Session class which will serve as a factory for new Session objects:
+        		</p>
+
+        		<pre>
+        			<code>
+>>> from sqlalchemy.orm import sessionmaker
+>>> Session = sessionmaker(bind=engine)
+
+# or
+
+>>> Session = sessionmaker()
+>>> Session.configure(bind=engine)
+
+
+        			</code>
+        		</pre>
+        	</section>
+
+	    	<section>
+        		<h2>Data Insertion</h2>
+        		<br>
+        		<p>
+        			To persist our Movie object, we add() it to our Session
+        		</p>
+
+        		<pre>
+        			<code>
+>>> Session = sessionmaker(bind=engine)
+>>> session = Session()        			
+
+>>> m1 = Movie("Avengers: Age of Ultron", 2015)
+>>> session.add(m1)
+>>> session.commit()
+
+# add multiple data
+>>> session.add_all([
+	Movie("Avengers: Age of Ultron", 2015),
+	Movie("Guardians of the Galaxy", 2014),
+	Movie("How to Train Your Dragon", 2010)
+])
+>>> session.commit()
+        			</code>
+        		</pre>
+        	</section>
+
+	    	<section>
+        		<h2>Fetching Data</h2>
+        		<br>
+        		<p>
+        			A Query object is created using the query() method on Session. This function takes a variable number of arguments, which can be any combination of classes and class-instrumented descriptors. Below, we indicate a Query which loads Movie object instances. 
+        		</p>
+        	</section>
+
+	    	<section>
+        		<p>
+        			When evaluated in an iterative context, the list of Movie objects present is returned:
+        		</p>
+
+        		<pre>
+        			<code>
+>>> movies = session.query(Movie).all()
+>>> for movie in movies:
+...    print movie
+
+Movie(u'Avengers: Age of Ultron', 2015)
+Movie(u'Guardians of the Galaxy', 2014)
+Movie(u'How to Train Your Dragon', 2010)
+        			</code>
+        		</pre>
+
+        		<pre>
+        			<code>
+>>> for movie in session.query(Movie).filter(Movie.year.in_([2014, 2015])).all()::
+...    print movie
+
+Movie(u'Avengers: Age of Ultron', 2015)
+Movie(u'Guardians of the Galaxy', 2014)
+        			</code>
+        		</pre>
+        	</section>
+
+	    	<section>
+        		<h2>Data Filters</h2>
+        		<br>
+
+        		<pre>
+        			<code>
+>>> m1 = session.query(Movie).filter_by(title='Guardians of the Galaxy').one()
+Movie(u'Guardians of the Galaxy', 2014)
+
+>>> m2 = session.query(Movie).filter(Movie.title.like('%Ultron%')).one()
+Movie(u'Avengers: Age of Ultron', 2015)
+        			</code>
+        		</pre>
+        	</section>
+
+	    	<section>
+        		<h2>Deleting Data</h2>
+        		<br>
+
+        		<pre>
+        			<code>
+>>> m1 = session.query(Movie).filter_by(title='Guardians of the Galaxy').one()
+Movie(u'Guardians of the Galaxy', 2014)
+
+>>> session.delete(m1)
+
+# update changes
+>>> session.commit()
+        			</code>
+        		</pre>
+        	</section>
+
+	    	<section>
+        		<h2>Commit/Rollback</h2>
+        		<br>
+        		<p>
+        			Until you call these methods, changes made to the data won't be discarded or save.
+        		</p>
+
+        		<pre>
+        			<code>
+>>> m1 = session.query(Movie).filter_by(title='Guardians of the Galaxy').one()
+Movie(u'Guardians of the Galaxy', 2014)
+
+>>> session.delete(m1)
+
+# update changes
+>>> session.commit()
+
+# discard changes
+>>> session.rollback()
+        			</code>
+        		</pre>
+        	</section>
+
+	    	<section>
+        		<h2>Terminologies</h2>
+        		<br>
+        		<p>
+        			Session could determine if the current records are modified or deleted or has new inserted data.
+        		</p>
+
+        		<table width="100%">
+        		<tr>
+        			<th>Command</th>
+        			<th>Explanation</th>
+        		</tr>
+        		<tr>
+        			<td>session.new</td>
+        			<td>New data is inserted</td>
+        		</tr>
+        		<tr>
+        			<td>session.deleted</td>
+        			<td>Some data are deleted</td>
+        		</tr>
+        		<tr>
+        			<td>session.dirty</td>
+        			<td>Data are modified</td>
+        		</tr>
+        		</table>
+        	</section>
+        </section>
+
+	    <section>
+        	<h1>Part 2</h1>
+        	<p>
+        		Coming soon :)
+        	</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="assets/reveal.js/lib/js/head.min.js"></script>
+<script src="assets/reveal.js/js/reveal.js"></script>
+<script>
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	history: true,
+	center: true,
+	transition: 'fade', // none/fade/slide/convex/concave/zoom
+	// Optional reveal.js plugins
+	dependencies: [
+		{ src: 'assets/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: 'assets/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'assets/reveal.js/plugin/zoom-js/zoom.js', async: true },
+		{ src: 'assets/reveal.js/plugin/notes/notes.js', async: true }
+	]
+});
+
+</script>
+
+</body>
+</html>

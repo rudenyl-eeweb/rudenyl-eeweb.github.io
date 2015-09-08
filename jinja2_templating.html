@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jinja2 Templating</title>
+<meta name="description" content="EEWeb Tutorial">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="assets/reveal.js/css/reveal.css">
+<link rel="stylesheet" href="assets/reveal.js/css/theme/black.css" id="theme">
+
+<!-- Code syntax highlighting -->
+<link rel="stylesheet" href="assets/reveal.js/lib/css/zenburn.css">
+
+<!-- Custom overrides -->
+<link rel="stylesheet" href="assets/css/overrides.css">
+
+<!--[if lt IE 9]>
+<script src="assets/reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<!--
+		//
+		// Intro
+		//
+		//-->
+		<section>
+		    <h1>Jinja2 Templating</h1>
+		</section>
+        <section>
+	        <section>
+	            <h2>Jinja what?</h2>
+				<br />
+	            <p>
+					The name Jinja was chosen because it’s the name of a Japanese temple and temple and template share a similar pronunciation. It is not named after the city in Uganda.
+					<br>
+					<br>
+					How fast? The benchmarks from the testsuite show that Jinja2 has a similar performance that is between 10 and 20 times faster than Django’s template engine or Genshi. 
+	            </p>
+	        </section>
+
+	        <section>
+	            <h2>Supported Python versions</h2>
+				<br>
+				<p>
+					Only Python 2.6/2.7 and >=3.3 support byte and unicode literals in a way compatible to each other version, so these versions are only supported by Jinja2.
+				</p>
+			</section>
+		</section>
+
+		<section>
+		    <h1>Delimiters</h1>
+		</section>
+		<section>
+	        <section>
+				<p>
+					3 common block delimiters used in Jinja2
+				</p>
+				<br>
+				<table>
+				<tr>
+					<th>Delimiter</th>
+					<th>Description</th>
+				</tr>
+				<tr>
+					<td>{% ... %}</td>
+					<td>for Statements/Control Structures</td>
+				</tr>
+				<tr>
+					<td>{{ &nbsp;&nbsp;... &nbsp;&nbsp;}}</td>
+					<td>for Expressions to print to the template output</td>
+				</tr>
+				<tr>
+					<td>{# &nbsp;... &nbsp;#}</td>
+					<td>for Comments which are not included in the template output</td>
+				</tr>
+				</table>
+			</section>
+
+	        <section>
+	        	<h2>Control Structures</h2>
+	        </section>
+	        <section>
+	        	<h2>For Loop</h2>
+	        	<p>
+	        		Loop over each item in a sequence.
+	        	</p>
+				<pre>
+					<code>
+&lt;h1>Members&lt;/h1>
+&lt;ul>
+{% for member in members %}
+   &lt;li>{{ member.first_name|e }}&lt;/li>
+{% endfor %}
+&lt;/ul>					
+					</code>
+					<code>
+&lt;dl>
+{% for key, value in my_dictionary_listing.items() %}
+    &lt;dt>{{ key|e }}&lt;/dt>
+    &lt;dd>{{ value|e }}&lt;/dd>
+{% endfor %}
+&lt;/dl>					
+					</code>
+				</pre>
+			</section>
+	        <section>
+	        	<p>
+	        		If no iteration took place because the sequence was empty or the filtering removed all the items from the sequence, you can render a default block by using <u>else</u>:
+	        	</p>
+				<pre>
+					<code>
+&lt;ul>
+{% for member in members %}
+    &lt;li>{{ member.first_name|e }}</li>
+{% else %}
+    &lt;li>&lt;em>No members yet.&lt;/em>&lt;/li>
+{% endfor %}
+&lt;/ul>					
+					</code>
+				</pre>
+			</section>
+
+	        <section>
+	        	<h2>If</h2>
+	        	<p>
+	        		The if statement in Jinja is comparable with the Python if statement. In the simplest form, you can use it to test if a variable is defined, not empty or not false:
+	        	</p>
+				<pre>
+					<code>
+{% if members %}
+&lt;ul>
+{% for member in members %}
+    &lt;li>{{ member.first_name|e }}&lt;/li>
+{% endfor %}
+&lt;/ul>
+{% endif %}				
+					</code>
+				</pre>
+			</section>
+	        <section>
+	        	<p>
+	        		For multiple branches, elif and else can be used like in Python. You can use more complex Expressions there, too:
+	        	</p>
+				<pre>
+					<code>
+{# What's up chicken? #}
+{# this is an example of a complex expression
+  which you could utilize the Python conditional statements with
+  {% if %}, {% elif %} or {% else %}
+#}
+&lt;p>					
+  {% if chicken.sick %}
+    The chicken is sick.
+  {% elif chicken.dead %}
+    You killed the chicken! I heychu!
+  {% else %}
+    The chicken looks okaaay --- so far
+  {% endif %}					
+&lt;/p>					
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<p>
+					For complete list of control structures, visit the official Jinja2 docs page at <a href="http://jinja.pocoo.org/docs/dev/templates/#list-of-control-structures">http://jinja.pocoo.org/docs/dev/templates/#list-of-control-structures</a>
+
+				</p>
+			</section>
+		</section>
+
+		<section>
+		    <h1>Blocks &amp; Inheritance</h1>
+		</section>
+	        <section>
+	            <h2>Blocks</h2>
+				<br>
+				<p>
+					Blocks are parts of your template which can be re-used in another template or child templates.
+				</p>
+			</section>
+	        <section>
+	            <h2>Example of Blocks</h2>
+				<br>
+				<pre>
+					<code>
+&lt;html>
+  &lt;title>{% block title %}Home{% endblock %}&lt;/code>
+    &lt;body>
+      {% block body %}
+        <p>
+          Content goes here.
+        </p>
+      {% endblock %}
+  &lt;/body>
+&lt;/html>	
+					</code>
+				</pre>
+				<pre>
+					<code>
+{% block &lt;name-of-block> %} ... {% endblock %}
+					</code>
+				</pre>
+			</section>
+
+	        <section>
+	            <h2>Inheritance</h2>
+				<br>
+				<p>
+					The most powerful part of Jinja is template inheritance. Template inheritance allows you to build a base “skeleton” template that contains all the common elements of your site and defines <u>blocks</u> that child templates can override.
+				</p>
+			</section>
+
+	        <section>
+	        	<section>
+		            <h2>Example of Inheritance</h2>
+					<br>
+					<pre>
+						<code>
+{% extends "base_layout.html" %}
+
+{% block title %}{{ super() }} - Login{% endblock %}
+{% block body %}
+  &lt;form method="POST">
+    &lt;label>Username:&lt;/label>
+    &lt;input type="text" name="username" />
+    &lt;br>
+    &lt;br>
+    &lt;label>Password:&lt;/label>
+    &lt;input type="password" name="password" />
+
+    &lt;button>Submit&lt;/button>
+  &lt;/form>
+{% endblock %}
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h2>super() -- what's that?</h2>
+					<br>
+					<p>
+						When called, {{ super() }}, it will display anything the parent code block contains.
+					</p>
+				</section>
+			</section>
+        </section>
+
+		<section>
+		    <h1>Rendering Templates in Flask</h1>
+		</section>
+		<section>
+			<section>
+				<p>
+					Generating HTML from within Python is not fun, and actually pretty cumbersome because you have to do the HTML escaping on your own to keep the application secure. Because of that Flask configures the Jinja2 template engine for you automatically.
+				</p>
+			</section>
+			<section>
+				<p>
+					To render a template you can use the render_template() method. All you have to do is provide the name of the template and the variables you want to pass to the template engine as keyword arguments. Here’s a simple example of how to render a template:
+				</p>
+				<pre>
+					<code>
+from flask import render_template
+
+@app.route('/hello/')
+@app.route('/hello/&lt;name>')
+def hello(name=None):
+    return render_template('hello.html', name=name)
+    				</code>
+				</pre>
+			</section>
+			<section>
+				<p>
+					For templates you can use the full power of Jinja2 templates.
+					<br>
+					Here is an example template:
+				</p>
+				<pre>
+					<code>
+&lt;!doctype html>
+&lt;title>Hello from Team.os&lt;/title>
+{% if name %}
+  &lt;h1>Hello {{ name }}!&lt;/h1>
+{% else %}
+  &lt;h1>Well, hello there mister!&lt;/h1>
+{% endif %}
+    				</code>
+				</pre>
+			</section>
+			<section>
+				<p>
+					You can also pass multiple variables to be rendered or processed:
+				</p>
+				<pre>
+					<code>
+from Flask import render_template
+
+@app.route('/login')
+def login():
+  data = {
+    'username': 'johndoe@email.com',
+    'password': 'logmein'
+  }
+  is_admin = False
+
+  return render_template('login.html', 
+    data=data, 
+    admin=is_admin, 
+    can_display=True)
+    				</code>
+				</pre>
+			</section>
+			<section>
+				<p>
+					The corresponding template layout will then be like this:
+				</p>
+				<pre>
+					<code>
+{% extends 'base_layout.html' %}
+
+{% block title %}{{ super() }} - Login{% endblock %}
+{% block body %}
+  &lt;form method="POST">
+    &lt;label>Username:&lt;/label>
+    &lt;input type="text" name="username" value="{{ data.username }}" />
+    &lt;br>
+    &lt;br>
+    &lt;label>Password:&lt;/label>
+    &lt;input type="password" name="password" value="{{ data.password }}" />
+
+    &lt;button>Submit&lt;/button>
+  &lt;/form>
+{% endblock %}
+
+					</code>
+				</pre>
+			</section>
+		</section>
+    </div>
+</div>
+
+<script src="assets/reveal.js/lib/js/head.min.js"></script>
+<script src="assets/reveal.js/js/reveal.js"></script>
+<script>
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	history: true,
+	center: true,
+	transition: 'fade', // none/fade/slide/convex/concave/zoom
+	// Optional reveal.js plugins
+	dependencies: [
+		{ src: 'assets/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: 'assets/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'assets/reveal.js/plugin/zoom-js/zoom.js', async: true },
+		{ src: 'assets/reveal.js/plugin/notes/notes.js', async: true }
+	]
+});
+
+</script>
+
+</body>
+</html>
