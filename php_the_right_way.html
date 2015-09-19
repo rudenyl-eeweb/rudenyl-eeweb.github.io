@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PHP: The Right Way</title>
+<meta name="description" content="PHP: The Right Way">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="assets/reveal.js/css/reveal.css">
+<link rel="stylesheet" href="assets/reveal.js/css/theme/ptrw.css" id="theme">
+
+
+<!-- Code syntax highlighting -->
+<link rel="stylesheet" href="assets/reveal.js/lib/css/zenburn.css">
+
+<!-- Custom overrides -->
+<link rel="stylesheet" href="assets/css/overrides.css">
+
+<!--[if lt IE 9]>
+<script src="assets/reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<!--
+		//
+		// Intro
+		//
+		//-->
+		<section>
+			<section>
+			    <h1 class="topic_header">PHP</h1>
+				<p class="topic_description">
+					The Right Way.
+				<p>
+				<a style="font-size:50%" href="http://www.phptherightway.com/">http://www.phptherightway.com/</a>
+			</section>
+
+	        <section>
+	            <p>
+					There is no canonical way to use PHP. This talk aim to introduce new PHP developers to some topics which they may not discover until it is too late, and aims to give seasoned pros some fresh ideas on those topics they’ve been doing for years without ever reconsidering. 
+	            </p>
+	        </section>
+
+	        <section>
+	        	<h2>What this talk is all about?</h2>
+	        	<br>
+	        	<div style="text-align:left">
+		        	<ul>
+		        		<li>won't tell you which tools to use</li>
+		        		<li>offer suggestions for multiple options</li>
+		        		<li>explaining the differences in approach and use-case</li>
+		        	</ul>
+
+		        	<br>
+		        	<br>
+		        	<h4 style="color:#888">Disclaimer</h4>
+		        	<ul>
+		        		<li>not all topics will be discussed</li>
+		        	</ul>
+		        </div>
+	        </section>
+        </section>
+
+		<section>
+			<section>
+		    	<h1>Code Style Guide</h1>
+		    </section>
+
+		    <section>
+		    	<h2>Code Style Guide</h2>
+		    	<br>
+		    	<p>
+		    		The PHP community is large and diverse, composed of innumerable libraries, frameworks, and components. It is common for PHP developers to choose several of these and combine them into a single project. It is important that PHP code adhere to a common code style to make it easy for developers to mix and match various libraries for their projects.
+		    		<br>
+		    		<br>
+		    		The Framework Interop Group (FIG) has proposed and approved a series of style recommendations called PHP Standards Recommendation or PSR.
+		    	</p>
+		    </section>
+
+		    <section>
+		    	<table width="600">
+		    	<tr>
+		    		<td width="400" style="color:#888">Coding Standards</td>
+		    		<td><b>PSR-1</b></td>
+		    	</tr>
+		    	<tr>
+		    		<td></td>
+		    		<td><b>PSR-2</b></td>
+		    	</tr>
+		    	</table>
+		    	
+		    	<br>
+		    	<table width="600">
+		    	<tr>
+		    		<td width="400" style="color:#888">Autoloading Standards</td>
+		    		<td><b>PSR-0</b></td>
+		    	</tr>
+		    	<tr>
+		    		<td></td>
+		    		<td><b>PSR-4</b></td>
+		    	</tr>
+		    	</table>
+
+		    	<br>
+		    	<table width="600">
+		    	<tr>
+		    		<td width="400" style="color:#888">Logger Interface</td>
+		    		<td><b>PSR-3</b></td>
+		    	</tr>
+		    	</table>
+
+		    	<br>
+		    	<table width="600">
+		    	<tr>
+		    		<td width="400" style="color:#888">HTTP Message Interfaces</td>
+		    		<td><b>PSR-7</b></td>
+		    	</tr>
+		    	</table>
+		    </section>
+
+		    <section>
+		    	<h2>Symfony Coding Standards</h2>
+		    	<a style="font-size:50%" href="http://symfony.com/doc/current/contributing/code/standards.html">http://symfony.com/doc/current/contributing/code/standards.html</a>
+		    	<br>
+		    	<pre style="margin:0;padding:0;font-size:40%">
+		    		<code>
+<&#63;php
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier &lt;fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Acme;
+
+/**
+ * Coding standards demonstration.
+ */
+class FooBar
+{
+    const SOME_CONST = 42;
+
+    private $fooBar;
+
+    /**
+     * @param string $dummy Some argument description
+     */
+    public function __construct($dummy)
+    {
+        $this->fooBar = $this->transformText($dummy);
+    }
+    				</code>
+    			</pre>
+    		</section>
+    		<section>
+		    	<pre style="margin:0;padding:0;font-size:40%">
+    				<code>
+    /**
+     * @param string $dummy Some argument description
+     * @param array  $options
+     * @return string|null Transformed input
+     * @throws \RuntimeException
+     */
+    private function transformText($dummy, array $options = array())
+    {
+        $mergedOptions = array_merge(
+            array(
+                'some_default' => 'values',
+                'another_default' => 'more values',
+            ),
+            $options
+        );
+
+        if (true === $dummy) {
+            return;
+        }
+
+        if ('string' === $dummy) {
+            if ('values' === $mergedOptions['some_default']) {
+                return substr($dummy, 0, 5);
+            }
+
+            return ucwords($dummy);
+        }
+
+        throw new \RuntimeException(sprintf('Unrecognized dummy option "%s"', $dummy));
+    }
+
+    private function reverseBoolean($value = null, $theSwitch = false)
+    {
+        if (!$theSwitch) {
+            return;
+        }
+
+        return !$value;
+    }
+}		    		
+		    		</code>
+		    	</pre>
+		    </section>
+		</section>
+
+		<section>
+			<section>
+		    	<h1>Language Highlights</h1>
+		    </section>
+
+		    <section>
+		    	<p>
+		    		PHP has evolved dramatically over the years and supports a variety of programming techniques.
+		    	</p>
+	    		<table style="font-size:80%;color:#888;">
+	    		<tr>
+	    			<td style="color:#000;">PHP 5.6</td>
+	    			<td>2014</td>
+	    			<td>constant scalar expressions, variadic functions</td>
+	    		</tr>
+	    		<tr>
+	    			<td style="color:#000;">PHP 5.5</td>
+	    			<td>2013</td>
+	    			<td>generators, class name resolution via ::class</td>
+	    		</tr>
+	    		<tr>
+	    			<td style="color:#000;">PHP 5.4</td>
+	    			<td>2012</td>
+	    			<td>built-in web server; traits</td>
+	    		</tr>
+	    		<tr>
+	    			<td style="color:#000;">PHP 5.3</td>
+	    			<td>2009</td>
+	    			<td>anonymous functions, closures and namespaces</td>
+	    		</tr>
+	    		<tr>
+	    			<td style="color:#000;">PHP 5.0</td>
+	    			<td>2004</td>
+	    			<td>Adding a solid object-oriented model</td>
+	    		</tr>
+	    		</table>
+		    </section>
+		</section>
+
+	    <section>
+	    	<h2>Programming Paradigms</h2>
+	    </section>
+
+	    <section>
+	    	<section>
+	    		<h2>Object-oriented Programming</h2>
+	    		<p>
+	    			PHP has a very complete set of object-oriented programming features including support for classes, abstract classes, interfaces, inheritance, constructors, cloning, exceptions, and more.
+	    		</p>
+		    	<ul>
+		    		<li>Object Inheritance</li>
+		    		<li>Class Abstraction</li>
+		    		<li>Object Interfaces</li>
+		    		<li>Scope Resolution Operator (::)</li>
+		    		<li>Property Visibility</li>
+		    		<li>Traits</li>
+		    		<li>... and more :)</li>
+		    	</ul>
+		    </section>
+
+		    <section>
+	    		<h3>Object Inheritance</h3>
+		    	<pre style="margin:0;padding:0;font-size:42%">
+		    		<code>
+<&#63;php
+class Foo
+{
+    public function printItem($string)
+    {
+        echo 'Foo: ' . $string . PHP_EOL;
+    }
+    
+    public function printPHP()
+    {
+        echo 'PHP is great.' . PHP_EOL;
+    }
+}
+
+class Bar extends Foo
+{
+    public function printItem($string)
+    {
+        echo 'Bar: ' . $string . PHP_EOL;
+    }
+}
+
+$foo = new Foo();
+$bar = new Bar();
+$foo->printItem('baz'); // Output: 'Foo: baz'
+$foo->printPHP();       // Output: 'PHP is great' 
+$bar->printItem('baz'); // Output: 'Bar: baz'
+$bar->printPHP();       // Output: 'PHP is great'
+?>
+	    			</code>
+	    		</pre>
+		    </section>
+
+		    <section>
+	    		<h3>Class Abstraction</h3>
+		    	<pre style="margin:0;padding:0;font-size:42%">
+		    		<code>
+<&#63;php
+abstract class AbstractClass
+{
+    // Our abstract method only needs to define the required arguments
+    abstract protected function prefixName($name);
+}
+
+class ConcreteClass extends AbstractClass
+{
+    // Our child class may define optional arguments not in the parent's signature
+    public function prefixName($name, $separator = ".") {
+        if ($name == "Pacman") {
+            $prefix = "Mr";
+        } elseif ($name == "Pacwoman") {
+            $prefix = "Mrs";
+        } else {
+            $prefix = "";
+        }
+        return "{$prefix}{$separator} {$name}";
+    }
+}
+
+$class = new ConcreteClass;
+echo $class->prefixName("Pacman"), "\n";
+echo $class->prefixName("Pacwoman"), "\n";
+?>
+	    			</code>
+	    		</pre>
+		    </section>
+
+		    <section>
+	    		<h3>Object Interface</h3>
+		    	<pre style="margin:0;padding:0;font-size:40%">
+		    		<code>
+<&#63;php
+interface iTemplate
+{
+    public function setVariable($name, $var);
+    public function getHtml($template);
+}
+
+// Implement the interface : This will work
+class Template implements iTemplate
+{
+    private $vars = array();
+    public function setVariable($name, $var)
+    {
+        $this->vars[$name] = $var;
+    }
+  
+    public function getHtml($template)
+    {
+        foreach($this->vars as $name => $value) {
+            $template = str_replace('{' . $name . '}', $value, $template);
+        }
+ 
+        return $template;
+    }
+}
+
+// This will not work
+class BadTemplate implements iTemplate
+{
+    private $vars = array();
+    public function setVariable($name, $var)
+    {
+        $this->vars[$name] = $var;
+    }
+}
+?>
+	    			</code>
+	    		</pre>
+		    </section>
+
+		    <section>
+	    		<h3>Trait</h3>
+		    	<pre style="margin:0;padding:0;">
+		    		<code>
+<&#63;php
+class Base {
+    public function sayHello() {
+        echo 'Hello ';
+    }
+}
+
+trait SayWorld {
+    public function sayHello() {
+        parent::sayHello();
+        echo 'World!';
+    }
+}
+
+class MyHelloWorld extends Base {
+    use SayWorld;
+}
+
+$o = new MyHelloWorld();
+$o->sayHello();
+?>
+	    			</code>
+	    		</pre>
+		    </section>
+		</section>
+
+		<section>
+			<section>
+				<h2>Functional Programming</h2>
+				<br>
+				<p>
+					PHP supports first-class functions, meaning that a function can be assigned to a variable. Both user-defined and built-in functions can be referenced by a variable and invoked dynamically. 
+				</p>
+		    	<ul>
+		    		<li>Anonymouse functions</li>
+		    		<li>Closures</li>
+		    	</ul>
+			</section>
+
+		    <section>
+	    		<h3>Anonymous Function</h3>
+		    	<pre style="margin:0;padding:0;">
+		    		<code>
+<&#63;php
+echo preg_replace_callback('~-([a-z])~', function ($match) {
+    return strtoupper($match[1]);
+}, 'hello-world');
+// outputs helloWorld
+?>
+	    			</code>
+	    		</pre>
+
+		    	<pre style="margin:0;padding:0;">
+		    		<code>
+<&#63;php
+$greet = function($name)
+{
+    printf("Hello %s\r\n", $name);
+};
+
+$greet('World');
+$greet('PHP');
+?>
+	    			</code>
+	    		</pre>
+		    </section>
+
+		    <section>
+	    		<h3>Closure</h3>
+		    	<pre style="margin:0;padding:0;">
+		    		<code>
+<&#63;php
+function createGreeter($who) {
+	return function() use ($who) {
+		echo "Hello $who";
+	};
+}
+
+$greeter = createGreeter("World");
+$greeter(); // Hello World
+?>
+	    			</code>
+	    		</pre>
+		    </section>
+		</section>
+
+		<section>
+		    <section>
+		    	<h2>More Highlights</h2>
+		    	<br>
+		    	<ul>
+		    		<li>Namespaces</li>
+		    		<li>Standard PHP Library (SPL)</li>
+		    		<li>Command Line Interface</li>
+		    		<li>Xdebug</li>
+		    	</ul>
+		    </section>
+		</section>
+
+		<section>
+			<h1>Design Patterns</h1>
+		</section>
+
+		<section>
+			<section>
+				<h2>Design Patterns</h2>
+				<p>
+					There are numerous ways to structure the code and project for your web application, and you can put as much or as little thought as you like into architecting. But it is usually a good idea to follow common patterns because it will make your code easier to manage and easier for others to understand.
+				</p>
+			</section>
+
+			<section>
+				<h2>Design Patterns</h2>
+				<table>
+				<tr>
+					<td><b>Factory</b></td>
+					<td>
+						One of the most commonly used design patterns is the factory pattern. In this pattern, a class simply creates the object you want to use.
+					</td>
+				</tr>
+				<tr>
+					<td><b>Singleton</b></td>
+					<td>
+						When designing web applications, it often makes sense conceptually and architecturally to allow access to one and only one instance of a particular class. The singleton pattern enables us to do this.
+					</td>
+				</tr>
+				<tr>
+					<td><b>Strategy</b></td>
+					<td>
+						With the strategy pattern you encapsulate specific families of algorithms allowing the client class responsible for instantiating a particular algorithm to have no knowledge of the actual implementation.
+					</td>
+				</tr>
+				</table>
+			</section>
+
+			<section>
+				<h2>Design Patterns</h2>
+				<table>
+				<tr>
+					<td><b>Front Controller</b></td>
+					<td>
+						The front controller pattern is where you have a single entrance point for your web application. The front controller pattern can be beneficial because it encourages modular code and gives you a central place to hook in code that should be run for every request.
+					</td>
+				</tr>
+				<tr>
+					<td><b>MVC</b></td>
+					<td>
+						The model-view-controller lets you break up code into logical objects.
+					</td>
+				</tr>
+				</table>
+			</section>
+		</section>
+		<section>
+			<h1>Dependency Management</h1>
+		</section>
+
+		<section>
+			<section>
+				<p>
+					There are a ton of PHP libraries, frameworks, and components to choose from. Your project will likely use several of them — these are project dependencies. Until recently, PHP did not have a good way to manage these project dependencies. Even if you managed them manually, you still had to worry about autoloaders. That is no longer an issue.
+					<br>
+					<br>
+					Currently there are two major package management systems for PHP -- <b>Composer</b> and <b>PEAR</b>. Composer is the main package manager to use for PHP, however for a long time PEAR used to fill that role.
+				</p>
+			</section>
+
+			<section>
+				<h2>Composer and Packagist</h2>
+				<p>
+					Installation
+				</p>
+				<pre>
+					<code>
+$ curl -s https://getcomposer.org/composer.phar -o $HOME/local/bin/composer
+$ chmod +x $HOME/local/bin/composer					
+					</code>
+				</pre>
+
+				<br>
+				<h4>Installing on Windows</h4>
+				<p>
+					For Windows users the easiest way to get up and running is to use the <a href="https://getcomposer.org/Composer-Setup.exe"><b>ComposerSetup</b></a> installer, which performs a global install and sets up your $PATH so that you can just call composer from any directory in your command line.
+				</p>
+			</section>
+
+			<section>
+				<h2>Installing Dependencies</h2>
+				<p>
+					Composer keeps track of your project’s dependencies in a file called composer.json. You can manage it by hand if you like, or use Composer itself. The composer require command adds a project dependency and if you don’t have a composer.json file, one will be created. Here’s an example that adds Twig as a dependency of your project.
+				</p>
+				<pre>
+					<code>
+$ composer require twig/twig:~1.8					
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<p>
+					Alternatively the composer init command will guide you through creating a full <b>composer.json</b> file for your project. Either way, once you’ve created your composer.json file you can tell Composer to download and install your dependencies into the <b>vendor/</b> directory.
+				</p>
+				<pre>
+					<code>
+$ composer install					
+					</code>
+				</pre>
+				<p>
+					Next, add this line to your application’s primary PHP file; this will tell PHP to use Composer’s autoloader for your project dependencies.
+				</p>
+				<pre>
+					<code>
+<&#63;php
+require 'vendor/autoload.php';
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<h3 style="text-transform:lowercase">composer.json</h3>
+				<pre>
+					<code>
+{
+    "name": "laravel/lumen",
+    "description": "The Laravel Lumen Framework.",
+    "keywords": ["framework", "laravel", "lumen"],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "laravel/lumen-framework": "5.0.*",
+        "twig/twig": "~1.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "classmap": [
+            "database/"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}
+					</code>
+				</pre>
+			</section>
+		</section>
+    </div>
+</div>
+
+<footer>
+    <h1 class="topic_header">PHP</h1>
+	<p class="topic_description">
+		The Right Way.
+	<p>
+</footer>
+
+<script src="assets/reveal.js/lib/js/head.min.js"></script>
+<script src="assets/reveal.js/js/reveal.js"></script>
+<script>
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	history: true,
+	center: true,
+	transition: 'fade', // none/fade/slide/convex/concave/zoom
+	// Optional reveal.js plugins
+	dependencies: [
+		{ src: 'assets/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: 'assets/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'assets/reveal.js/plugin/zoom-js/zoom.js', async: true },
+		{ src: 'assets/reveal.js/plugin/notes/notes.js', async: true }
+	]
+});
+</script>
+
+</body>
+</html>
