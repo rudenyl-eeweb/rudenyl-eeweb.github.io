@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PHP/MySQL: The Basics</title>
+<meta name="description" content="PHP/MySQL: The Basics">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="assets/reveal.js/css/reveal.css">
+<link rel="stylesheet" href="assets/css/simplified.css" id="theme">
+
+
+<!-- Code syntax highlighting -->
+<link rel="stylesheet" href="assets/reveal.js/lib/css/zenburn.css">
+
+<!-- Custom overrides -->
+<link rel="stylesheet" href="assets/css/overrides.css">
+
+<!--[if lt IE 9]>
+<script src="assets/reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<!--
+		//
+		// Intro
+		//
+		//-->
+		<section>
+		    <h1><b>PHP</b>/<span style="text-transform:none;">MySQL</span></h1>
+		    <p>
+		    	The Basics
+		    </p>
+		</section>
+
+		<section>
+	        <section>
+	        	<h1>PHP</h1>
+	        </section>
+	        <section>
+	        	<h2>PHP: Introduction</h2>
+	            <p>
+					PHP: Hypertext Preprocessor (PHP) is a server-side scripting language designed for web development but also used as a general-purpose programming language. 
+	            </p>
+	            <ul>
+	            	<li>started by <b>Rasmus Lerdof</b> which originally stands for "Personal Home Page"</li>
+	            	<li>does not need to be compiled before it is used</li>
+	            	<li>widely ported and can be deployed on most web servers on almost every operating system and platform, free of charge.</li>
+	            </ul>
+	        </section>
+	        <section>
+	        	<h2>Releases</h2>
+		    	<p>
+		    		PHP has evolved dramatically over the years and supports a variety of programming techniques.
+		    	</p>
+	    		<table style="font-size:80%;color:#888;">
+	    		<tr>
+	    			<td style="color:#000;"><b>PHP 5.6</b></td>
+	    			<td>2014</td>
+	    			<td>constant scalar expressions, variadic functions</td>
+	    		</tr>
+	    		<tr>
+	    			<td style="color:#000;">PHP 5.5</td>
+	    			<td>2013</td>
+	    			<td>generators, class name resolution via ::class</td>
+	    		</tr>
+	    		<tr>
+	    			<td style="color:#000;">PHP 5.4</td>
+	    			<td>2012</td>
+	    			<td>built-in web server; traits</td>
+	    		</tr>
+	    		<tr>
+	    			<td style="color:#000;">PHP 5.3</td>
+	    			<td>2009</td>
+	    			<td>anonymous functions, closures and namespaces</td>
+	    		</tr>
+	    		<tr>
+	    			<td style="color:#000;">PHP 5.0</td>
+	    			<td>2004</td>
+	    			<td>Adding a solid object-oriented model</td>
+	    		</tr>
+	    		</table>
+	        </section>
+	        <section>
+	        	<h2>What do I need?</h2>
+
+	        	<p>
+	        		Download binaries from <a href="http://www.php.net/downloads.php">PHP.net download section.</a> but all-in-one packages already exists.
+	        	</p>
+
+	        	<table>
+	        	<tr>
+	        		<td style="vertical-align:middle;">Windows</td>
+	        		<td>
+	        			<ul>
+	        				<li>WAMP Server <a class="small grey" href="http://www.wampserver.com">http://www.wampserver.com</a></li>
+	        				<li>XAMPP <a class="small grey" href="https://www.apachefriends.org/index.html">https://www.apachefriends.org/index.html</a></li>
+	        			</ul>
+	        		</td>
+	        	</tr>
+	        	<tr>
+	        		<td style="vertical-align:middle;">Linux</td>
+	        		<td>
+	        			<ul>
+	        				<li>XAMPP <a class="small grey" href="https://www.apachefriends.org/index.html">https://www.apachefriends.org/index.html</a></li>
+	        			</ul>
+	        		</td>
+	        	</tr>
+	        	<tr>
+	        		<td style="vertical-align:middle;">OSX</td>
+	        		<td>
+	        			<ul>
+	        				<li>MAMP <a class="small grey" href="https://www.mamp.info/de/">https://www.mamp.info/de/</a></li>
+	        				<li>XAMPP <a class="small grey" href="https://www.apachefriends.org/index.html">https://www.apachefriends.org/index.html</a></li>
+	        			</ul>
+	        		</td>
+	        	</tr>
+	        	</table>
+	        </section>
+	        <section>
+	        	<h2>Code Syntax</h2>
+	        	<pre>
+	        		<code>
+&lt;&#63;php
+/*
+ * This is a multi-line
+ * comment
+ */
+// this is a single-line comment
+# this another comment
+
+// example of class
+class FooBar
+{
+    const SOME_CONST = 42;	# constant
+    var $fooBar;		# variable
+
+    // example of a function
+    public function MyFunction()
+    {
+    	echo __CLASS__; # __CLASS__ is magic constant
+    }
+}
+?>
+	        		</code>
+	        	</pre>
+		    </section>
+		    <section>
+		    	<h2>Code Syntax</h2>
+		    	<div class="text">
+			    	<h4 class="u">Start of Code</h4>
+			    	<p>
+			    	 	Every piece of PHP code begins with <b>&lt;?php</b> (or the abbreviated <b>&lt;?</b> if your server is configured to handle that).
+			    	</p>
+
+			    	<h4 class="u">End of Code</h4>
+			    	<p>
+			    	 	The way to signify that the PHP code is finished is by adding <b>?></b> at the end but not required.
+			    	</p>
+
+			    	<h4 class="u">Code block</h4>
+			    	<p>
+			    	 	Every code block, with a few exceptions, each separate instruction that you write will end with a semicolon.
+			    	</p>
+		    	</div>
+		    </section>
+
+		    <section>
+		    	<h2>Naming Variables</h2>
+		    	<p>
+		    		PHP variables start with the dollar sign <b>$</b>. You can name your variable anything you like so long as it follows these rules:
+		    	</p>
+		    	<ul>
+		    		<li>it starts with a letter</li>
+		    		<li>it is made up of letters, numbers, and the underscore ( <b>_</b> ) character, <span class="grey">ie <b>$Test1_2_3</b></span></li>
+		    		<li>case-sensitive<span class="grey">, so <b>$Test</b> and <b>$test</b> are not the same</span></li>
+		    	</ul>
+		    </section>
+
+		    <section>
+		    	<h2>Compound Words</h2>
+		    	<p>
+		    		For code readability and sanity, we can apply these compound words naming styles.
+		    	</p>
+		    	<table>
+		    	<tr>
+		    		<th>Style</th>
+		    		<th>Context</th>
+		    		<th>Variable Name</th>
+		    		<th>Function Name</th>
+		    	</tr>
+		    	<tr>
+		    		<td>camelCase</td>
+		    		<td>Hello world</td>
+		    		<td>$<b>h</b>ello<b>W</b>orld</td>
+		    		<td>function <b>h</b>ello<b>W</b>orld() {...}</td>
+		    	</tr>
+		    	<tr>
+		    		<td>PascalCase</td>
+		    		<td>Hello world</td>
+		    		<td>$<b>H</b>ello<b>W</b>orld</td>
+		    		<td>function <b>H</b>ello<b>W</b>orld() {...}</td>
+		    	</tr>
+		    	<tr>
+		    		<td>snake_case</td>
+		    		<td>Hello world</td>
+		    		<td>$hello<b>_</b>world</td>
+		    		<td>function hello<b>_</b>world() {...}</td>
+		    	</tr>
+		    	</table>
+		    </section>
+		</section>
+
+		<section>
+			<h1>Get Started</h1>
+		</section>
+
+		<section>
+			<section>
+				<h2>Variable Declarations</h2>
+	        	<pre>
+	        		<code>
+&lt;&#63;php
+$a = 1;
+$b = "2";
+$x = false;
+
+// example of concantenation
+echo $a . $b;		# 12
+print "$a$b";		# 12
+print "{$a}{$b}";	# 12
+print ($a . $x);	# 1
+
+// expression validation
+echo $a + $b;		# 3(?)
+
+
+// more on expression validation
+$c = "35abcd";
+echo $a + $c;		# 36
+
+// but
+$d = "abcd35";
+echo $a + $d;		# 1
+?>
+	        		</code>
+			</section>
+
+			<section>
+				<h2>Arrays</h2>
+				<div style="float:left;width:50%">
+		        	<pre>
+		        		<code>
+&lt;&#63;php
+// simple array
+$array_sample = array(1,2,"abc","def");
+
+print_r($array_sample);
+?>
+
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => abc
+    [3] => def
+)
+		        		</code>
+		        	</pre>
+	        	</div>
+				<div style="float:left;width:49%;border-left:1px dotted #fff;">
+		        	<pre>
+		        		<code>
+&lt;&#63;php
+// simple array
+$array_sample = array(1,2,"xyz");
+
+var_dump<($array_sample);
+?>
+
+array(3) {
+  [0]=>
+  int(1)
+  [1]=>
+  int(2)
+  [2]=>
+  string(3) "xyz"
+}		        		</code>
+		        	</pre>
+	        	</div>
+			</section>
+			<section>
+				<h2>Function Declarations</h2>
+	        	<pre>
+	        		<code>
+&lt;&#63;php
+function helloWorld()
+{
+	echo 'It\'s not hello world anymore, ';
+	echo "it's something else :)";
+}	        		
+
+
+function hello_world()
+{
+	$a = 'It\'s not hello world anymore, ';
+	$b = "it's something else :)";
+
+	return $a . $b;
+}	        		
+
+helloWorld();
+echo hello_world();
+?>
+
+It's not hello world anymore, it's something else :)
+It's not hello world anymore, it's something else :)
+	        		</code>
+	        	</pre>
+	        </section>
+	        <section>
+	        	<h2>Conditional Logic</h2>
+	        	<pre>
+	        		<code>
+&lt;&#63;php
+if (true) echo 'always executed';
+if (false) echo 'not coming here ever';
+
+$a = 'false';
+if ($a) echo 'yo!';
+if ((int)$a) echo 'yay!';
+
+$b = null;
+if ($b) echo 'null wont be here';
+else if ($b == "null") echo 'not here either';
+else if ($b === null) echo 'null is here';
+else {
+	echo "hmmm...";
+}
+?>
+	        		</code>
+	        	</pre>
+	        </section>
+	        <section>
+	        	<h2>Loops</h2>
+	        	<pre>
+	        		<code>
+&lt;&#63;php
+$n = array(1,2,5,10);
+
+foreach ($n as $whatever) {
+	echo $whatever .'-';
+}
+
+# this will throw an exception
+# because $n is an index-based array
+for ($i=0; $i<5; $i++) {
+	echo $n[$i];
+}
+?>
+	        		</code>
+	        	</pre>
+
+	        	<p>
+	        		Loops include C-like implementations, ie <b>do..while</b> and <b>while</b> loops.
+	        	</p>
+	        </section>
+	        <section>
+	        	<h2>Switch</h2>
+	        	<p>
+	        		An example of a <b>switch</b> statement
+	        	</p>
+	        	<pre>
+	        		<code>
+&lt;&#63;php
+$chicken_is = 'sick';
+
+switch ($chicken_is) {
+    case 'sick':
+        echo "The chicken is {$chicken_is}. Poor little chicken.";
+        break;
+
+    case 'dead':
+    	echo 'You killed the chicken! I heychu!';
+    	break;
+
+    default:
+    	echo 'The chicken looks okaaay --- so far';
+    	break;
+}
+?>
+	        		</code>
+	        	</pre>
+	        </section>
+		</section>
+    </div>
+</div>
+
+<footer>
+	<p>
+		PHP/MySQL: The Basics
+	</p>
+</footer>
+
+<script src="assets/reveal.js/lib/js/head.min.js"></script>
+<script src="assets/reveal.js/js/reveal.js"></script>
+<script>
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	history: true,
+	center: true,
+	transition: 'fade', // none/fade/slide/convex/concave/zoom
+	// Optional reveal.js plugins
+	dependencies: [
+		{ src: 'assets/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: 'assets/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'assets/reveal.js/plugin/zoom-js/zoom.js', async: true },
+		{ src: 'assets/reveal.js/plugin/notes/notes.js', async: true }
+	]
+});
+</script>
+
+</body>
+</html>
