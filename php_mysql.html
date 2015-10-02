@@ -88,7 +88,7 @@
 	        	<h2>What do I need?</h2>
 
 	        	<p>
-	        		Download binaries from <a href="http://www.php.net/downloads.php">PHP.net download section.</a> but all-in-one packages already exists.
+	        		Download binaries from <a href="http://www.php.net/downloads.php">PHP.net download section.</a> But all-in-one packages already exists.
 	        	</p>
 
 	        	<table>
@@ -149,41 +149,631 @@ class FooBar
 	        	</pre>
 		    </section>
 		    <section>
-		    	<h2>Code Syntax</h2>
-		    	<div class="text">
-			    	<h4 class="u">Start of Code</h4>
+				<h2>Code Syntax <span class="grey small">(cont)</span></h2>
+	        	<br>
+		    	<div class="text small">
+			    	<h4><b>Start of Code</b></h4>
 			    	<p>
 			    	 	Every piece of PHP code begins with <b>&lt;?php</b> (or the abbreviated <b>&lt;?</b> if your server is configured to handle that).
 			    	</p>
 
-			    	<h4 class="u">End of Code</h4>
+			    	<br>
+			    	<h4><b>End of Code</b></h4>
 			    	<p>
 			    	 	The way to signify that the PHP code is finished is by adding <b>?></b> at the end but not required.
 			    	</p>
 
-			    	<h4 class="u">Code block</h4>
+			    	<br>
+			    	<h4><b>Code block</b></h4>
 			    	<p>
-			    	 	Every code block, with a few exceptions, each separate instruction that you write will end with a semicolon.
+			    	 	Every code block, with a few exceptions, each separate instruction that you write will end with a semicolon <b>;</b>
 			    	</p>
 		    	</div>
 		    </section>
+		</section>
 
-		    <section>
-		    	<h2>Naming Variables</h2>
-		    	<p>
-		    		PHP variables start with the dollar sign <b>$</b>. You can name your variable anything you like so long as it follows these rules:
-		    	</p>
-		    	<ul>
-		    		<li>it starts with a letter</li>
-		    		<li>it is made up of letters, numbers, and the underscore ( <b>_</b> ) character, <span class="grey">ie <b>$Test1_2_3</b></span></li>
-		    		<li>case-sensitive<span class="grey">, so <b>$Test</b> and <b>$test</b> are not the same</span></li>
-		    	</ul>
-		    </section>
+		<section>
+			<h1>Getting Started</h1>
+		</section>
 
+		<section>
+			<section>
+				<h2>Variable Declarations</h2>
+				<p class="text" style="font-size:90%">
+					A PHP variable can have a short name <span class="grey">(like x and y)</span> or a more descriptive name <span class="grey">(color, first_name, total_volume)</span>.
+					<br>
+					<br>
+					Rules for PHP variables:
+					<ul style="font-size:90%">
+						<li>a variable starts with the dollar <b>$</b> sign, followed by the name of the variable</li>
+						<li>a variable name <b>must</b> start with a letter or the underscore character</li>
+						<li>a variable name cannot start with a number</li>
+						<li>a variable name can only contain alpha-numeric characters and underscores (A-z, 0-9, and _ )</li>
+						<li>variable names are case-sensitive so <b>$color</b> and <b>$COLOR</b> are two different variables</li>
+					</ul>
+				</p>				
+			</section>
+
+			<section>
+				<h2>Variables <span class="grey small">(cont)</span></h2>
+				<div style="float:left;width:50%;margin-top:-30px">
+		        	<pre>
+		        		<code>
+&lt;&#63;php
+$a = 1;			# integer
+$b = "2";		# string
+$x = false;		# boolean
+$y = null;		# null value
+
+// example of concantenation
+echo $a . $b;		# 12
+print "$a$b";		# 12
+print "{$a}{$b}";	# 12
+print ($a . $x . $y);	# 1
+
+// expression validation
+echo $a + $b;		# 3(?)
+
+// more on expression validation
+$c = '35abcd';
+echo $a + $c;		# 36
+
+// but
+$d = 'abcd35';
+echo $a + $d;		# 1
+?>
+		        		</code>
+		        	</pre>
+	        	</div>
+				<div style="float:left;width:49%;border-left:1px dotted #fff;margin-top:-30px">
+		        	<pre>
+		        		<code>
+&lt;&#63;php
+$hello_world = "hello world";
+
+echo $hello_world;	# hello world
+
+// or
+echo "$hello_world";	# hello world
+
+// this doesn't produce the same
+// output as above though
+echo '$hello_world';	# $hello_world
+
+
+$tmp = array(
+    'hello' => 'world',
+    array('hello', 'world')
+);
+
+echo "$tmp['hello']";	# hello
+
+echo "{$tmp[0][0]} {$tmp[0][1]}";
+# outputs: hello world
+?>
+		        		</code>
+		        	</pre>
+		        </div>
+			</section>
+			<section>
+				<h2>Arrays</h2>
+				<p>
+					An array in PHP is actually an ordered map, which associates values to keys. It takes any number of comma-separated key => value pairs as arguments. An array can be declared using the <b>array()</b> language construct, or <b>[ ]</b> (<i>as of PHP5.4</i>).
+					<br />
+					<br />
+					Array keys can either be an integer or a string. The values can be of any type.
+				</p>
+			</section>
+			<section>
+				<h2>Arrays <span class="grey small">(cont)</span></h2>
+				<p>
+					Additionally the following key casts will occur:
+					<ul style="font-size:90%">
+						<li>
+							Strings containing valid integers will be cast to the integer type. E.g. the key "8" will actually be stored under 8. On the other hand "08" will not be cast, as it isn't a valid decimal integer.
+						</li>
+						<li>
+							Floats are also cast to integers, which means that the fractional part will be truncated. E.g. the key 8.7 will actually be stored under 8.
+						</li>
+						<li>
+							Bools are cast to integers, too, i.e. the key true will actually be stored under 1 and the key false under 0.
+						</li>
+						<li>
+							Null will be cast to the empty string, i.e. the key null will actually be stored under "".
+						</li>
+						<li>
+							Arrays and objects can not be used as keys. Doing so will result in a warning: Illegal offset type.		
+						</li>
+					</ul>			
+				</p>
+			</section>
+
+			<section>
+				<h2>Arrays <span class="grey small">(cont)</span></h2>
+				<div style="float:left;width:50%">
+		        	<pre>
+		        		<code>
+&lt;&#63;php
+$array_sample = array(1,2,
+	"abc",
+	"def"
+);
+
+# you can use "var_dump" or "print_r"
+# to display array values
+print_r($array_sample);
+?>
+
+----
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => abc
+    [3] => def
+)
+		        		</code>
+		        	</pre>
+	        	</div>
+				<div style="float:left;width:49%;border-left:1px dotted #fff;">
+		        	<pre>
+		        		<code>
+&lt;&#63;php
+// key/value pair
+$array_sample = array(
+    "movie_title" => "Jurassic", 
+    "year" => 2015
+);
+
+// multi-dimensional
+$array_sample = array(
+    2015 => [
+        "Jurassic", 
+        "Avengers: Age of Ultron",
+        "reviews" => [
+            "Rotten Tomatoes" => 71/100,
+            "IMDB" => "90%"
+        ]
+    ]
+);
+?>
+		        		</code>
+		        	</pre>
+	        	</div>
+			</section>
+	        <section>
+				<h2>Arrays <span class="grey small">(cont)</span></h2>
+	        	<pre>
+	        		<code>
+&lt;&#63;php
+// keys not on all elements
+$tmp = array(
+    'one',
+    'two',
+    5 => 'three',
+    'four'
+);
+
+var_dump($tmp);
+?>
+----					# print_r($tmp)
+array(4) {				Array		
+  [0]=>					(
+  string(3) "one"			    [0] => one
+  [1]=>					    [1] => two
+  string(3) "two"			    [5] => three
+  [5]=>					    [6] => four
+  string(5) "three"			)
+  [6]=>
+  string(4) "four"
+}
+	        		</code>
+	        	</pre>
+	        </section>
+	        <section>
+				<h2>Accessing Arrays</span></h2>
+	        	<pre style="font-size:50%">
+					<code>
+&lt;&#63;php
+$tmp = array(		# offset checking
+    1 => 'apple',	// index: 1
+    "two" => 2,		// index: ? -- not counted
+    array(1, 2)		// index: 2 -- since previous index is not counted
+);
+
+// get array count
+$count = count($tmp);	# $count --> 3
+
+echo $tmp[0], "\n";	# error --> Undefined offset: 0
+echo $tmp[1], "\n";	# apple
+echo $tmp['two'];	# 2
+
+echo $tmp[two];		# will display '2' but will throw a notification
+			# Notice: Use of undefined constant two - assumed 'two'
+
+echo $tmp[2];		# error --> Array to string conversion
+			# use var_dump() or print_r() instead
+			# since the value is an array
+
+echo $tmp[2][1];	# 2
+
+$n = count($tmp[2]);	# array length --> 2
+echo $tmp[2][$n - 1];	# 2
+?>
+	        		</code>
+	        	</pre>
+	        </section>
+	        <section>
+				<h2>Accessing Arrays <span class="grey small">(cont)</span></h2>
+	        	<pre>
+					<code>
+&lt;&#63;php
+function getArray() {
+    return array(1, 2, 3);
+}
+
+// as of PHP 5.4
+$two = getArray()[1];		# 2
+
+// or
+$tmp = getArray();
+$two = $tmp[1];			# 2
+
+// or
+list(, $two, $three) = getArray();
+echo $two, ', ', $three;	# 2, 3
+?>
+	        		</code>
+	        	</pre>
+	        </section>
+	        <section>
+				<h2>Modifying Arrays</h2>
+				<div style="float:left;width:50%;display:block;margin-top:-40px;">
+		        	<pre>
+						<code>
+&lt;&#63;php
+$tmp = [
+    5,
+    'two' => 2
+];
+print_r($tmp);
+
+# adding item to array
+$tmp[1] = 1;
+print_r($tmp);
+
+# change an array value
+$tmp[0] = 2;
+print_r($tmp);
+
+$tmp['two'] = 'three';
+print_r($tmp);
+
+# removing item in an array
+unset($tmp[1]);
+print_r($tmp);
+?>
+		        		</code>
+		        	</pre>
+	        	</div>
+				<div style="float:left;border-left:1px dotted #fff;width:49%;margin-top:-40px;">
+		        	<pre>
+						<code style="line-height:.9em">
+
+# output
+
+Array
+(
+    [0] => 5
+    [two] => 2
+)
+Array
+(
+    [0] => 5
+    [two] => 2
+    [1] => 1
+)
+Array
+(
+    [0] => 2
+    [two] => 2
+    [1] => 1
+)
+Array
+(
+    [0] => 2
+    [two] => three
+    [1] => 1
+)
+Array
+(
+    [0] => 2
+    [two] => three
+)
+		        		</code>
+		        	</pre>
+	        	</div>
+	        </section>
+	        <section>
+	        	<h2>Conditional Logic</h2>
+	        	<pre>
+	        		<code>
+&lt;&#63;php
+if (true) echo 'always executed';
+if (false) echo 'not coming here ever';
+
+$a = 'false';
+if ($a) echo 'yo!';		# yo!
+if ((int)$a) echo 'yay!';	# no output since type-casting a string to integer 
+				# produces 0, which is false
+	        		</code>
+	        		<code>
+&lt;&#63;php
+$b = null;
+if ($b) echo 'null wont be here';
+else if ($b == "null") echo 'not here either';
+else if ($b === null) echo 'null is here';
+else {
+    echo "hmmm...";
+}
+?>
+----
+null is here
+	        		</code>
+	        	</pre>
+	        </section>
+	        <section>
+	        	<h2>Comparison Operator</h2>
+	        	<p>
+	        		When comparing values in PHP, <b>==</b> compares the values of variables for equality, type casting as necessary. <b>===</b> checks if the two variables are of the same type <u>and</u> have the same value.
+	        	</p>
+	        	<pre>
+	        		<code>
+&lt;&#63;php
+$a = 0;
+$b = null;
+
+if ($a == $b) echo '0 is assumed as null', "\n";
+
+if ($a === $b) echo '0 === null', "\n";
+else echo '0 is not equal to null', "\n";
+?>
+----
+0 is assumed as null
+0 is not equal to null
+	        		</code>
+	        	</pre>
+	        </section>
+	        <section>
+	        	<h2>Loops</h2>
+				<div style="float:left;width:50%">
+		        	<pre>
+		        		<code>
+&lt;&#63;php
+$tmp = array(1,2);
+
+// for-loop
+for ($i=0; $i &lt; count($tmp); $i++) {
+    echo $tmp[$i], "\n";
+}
+
+// do-while
+$i = 0;
+do {
+    echo $tmp[$i], "\n";
+    $i++;
+} while($i &lt; count($tmp));
+?>
+----
+1
+2
+1
+2
+		        		</code>
+		        	</pre>
+	        	</div>
+				<div style="float:left;width:49%;border-left:1px dotted #fff;">
+		        	<pre>
+		        		<code>
+&lt;&#63;php
+$tmp = array(1,2);
+
+// while
+$i = 0;
+while ($i < count($tmp)) {
+    echo $tmp[$i], "\n";
+    $i++;
+}
+
+// foreach
+foreach ($n as $i) {
+    echo $i, "\n";
+}
+?>
+----
+1
+2
+1
+2
+		        		</code>
+		        	</pre>
+	        	</div>
+	        </section>
+	        <section>
+	        	<h2>Switch</h2>
+	        	<p>
+	        		An example of a <b>switch</b> statement
+	        	</p>
+	        	<pre>
+	        		<code>
+&lt;&#63;php
+$chicken_is = 'sick';
+
+switch ($chicken_is) {
+    case 'sick':
+        echo "The chicken is sick. Poor little chicken.";
+        break;
+
+    case 'dead':
+    	echo 'You killed the chicken! I heychu!';
+    	break;
+
+    default:
+    	echo 'The chicken looks okaaay --- so far';
+    	break;
+}
+?>
+	        		</code>
+	        	</pre>
+	        </section>
+			<section>
+				<h2>Function Declarations</h2>
+	        	<pre>
+	        		<code>
+&lt;&#63;php
+function helloWorld()
+{
+    echo 'Hello World!';
+}	        		
+
+# function declaration that returns a value
+function hello_world()
+{
+    $a = 'It\'s not hello world anymore, ';
+    $b = "it's something else :)";
+
+    return $a . $b;
+}	        		
+
+helloWorld();
+echo hello_world();
+?>
+----
+Hello World!
+It's not hello world anymore, it's something else :)
+	        		</code>
+	        	</pre>
+	        </section>
+			<section>
+				<h2>Functions <span class="grey small">(cont)</span></h2>
+	        	<pre style="font-size:48%;margin-top:-20px">
+	        		<code>
+&lt;&#63;php
+// required
+function divide($x, $y)
+{
+    return $x / $y;
+}	        		
+
+$quotient = divide(10, 2);	# equals 5
+
+// optional second parameter
+function multiply($x, $y=2)
+{
+    return $x * $y;
+}	        		
+
+$product = multiply(5);		# equals 10
+$product = multiply(5, 1);	# equals 5
+
+// all optional
+function add($x=1, $y=1)
+{
+    return $x + $y;
+}	        		
+
+$sum = add();			# equals 2
+$sum = add(5, 5);		# equals 10
+?>
+	        		</code>
+	        	</pre>
+	        </section>
+			<section>
+				<h2>Variables Scope</h2>
+				<br>
+				<p class="text">
+					The scope of a variable is the part of the script where the variable can be referenced/used.
+					<br>
+					<br>
+					PHP has three different variable scopes:
+					<ul class="text" style="width:100%">
+						<li>local</li>
+						<li>global</li>
+						<li>static</li>
+					</ul>
+				</p>
+	        </section>
+			<section>
+				<h2>Variables Scope</h2>
+				<div style="float:left;width:50%;font-size:90%;margin-top:-40px;">
+		        	<pre>
+		        		<code>
+&lt;&#63;php
+$offset = 1; # global scope
+
+function global_var_test($x)
+{
+    return $x + $y + $GLOBALS['offset'];
+}
+
+function global_var_test_2($x)
+{
+    global $offset;
+
+    return $x + $y + $offset;
+}
+
+function local_var_test($x)
+{
+    $offset = 1; # local scope
+
+    return $x + $offset;
+}
+
+echo global_var_test(3);	# 4
+echo global_var_test_2(3);	# 4
+echo local_var_test(3);		# 4
+?>
+		        		</code>
+		        	</pre>
+	        	</div>
+				<div style="float:left;width:49%;font-size:90%;border-left:1px dotted #fff;margin-top:-40px;">
+		        	<pre>
+		        		<code>
+&lt;&#63;php
+# normally, when function is completed,
+# local variables are deleted
+# but with static scope, the variable
+# retains the value
+
+# static scope
+function static_var_test()
+{
+    static $offset = 0;
+
+    return $offset++;
+}
+
+echo static_var_test();		# 0
+echo static_var_test();		# 1
+echo static_var_test();		# 2
+echo static_var_test();		# 3
+echo static_var_test();		# 4
+?>
+
+
+
+
+
+
+		        		</code>
+		        	</pre>
+	        	</div>
+	        </section>
 		    <section>
-		    	<h2>Compound Words</h2>
+		    	<h2>Naming Convention</h2>
 		    	<p>
-		    		For code readability and sanity, we can apply these compound words naming styles.
+		    		For code readability and sanity, we can apply the 3 most commonly used compound words naming styles.
 		    	</p>
 		    	<table>
 		    	<tr>
@@ -212,196 +802,123 @@ class FooBar
 		    	</tr>
 		    	</table>
 		    </section>
-		</section>
+	    </section>
+        
+		<section>
+			<h1>Introduction<br>to<br>Object-oriented Model</h1>
+        </section>
 
 		<section>
-			<h1>Get Started</h1>
+			<section>
+				<h2>What is a class?</h2>
+				<p>
+					A class is a collection of variables and functions working with these variables. Class variables are defined by the <b>var</b> keyword or any of the visibility keywords (public, private, protected); and functions/methods are declared by the keyword <b>function</b>.
+				</p>
+			</section>
+			<section>
+				<h2>Example of Class</h2>
+				<pre style="font-size:48%">
+					<code>
+&lt;&#63;php
+/**
+ * Class structure
+ */
+class TestClass
+{
+    var $name = 'MyClass';
+    protected static $type = 'class';
+
+    function __construct( $name='' )
+    {
+        if (!empty($name)) {
+            $this->name = $name;
+        }
+    }
+
+    public function className()
+    {
+        return $this->name;
+    }
+
+    public static function getType()
+    {
+    	return self::$type;
+    }
+}
+?>
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h2>Objects</h2>
+				<p>
+					Class is just a blueprint. To create a new object, use the <b>new</b> statement to instantiate a class.
+				</p>
+				<pre>
+					<code>
+&lt;&#63;php
+#
+# instantiation
+# (using the class definition on the previous page)
+#
+$o = new TestClass();
+echo $o->className();		# MyClass
+
+// static binding
+echo TestClass::getType();	# class
+?>
+					</code>
+				</pre>
+			</section>
 		</section>
+        
+		<section>
+			<h1>Connecting<br />to<br />MySQL</h1>
+        </section>
 
 		<section>
 			<section>
-				<h2>Variable Declarations</h2>
-	        	<pre>
-	        		<code>
-&lt;&#63;php
-$a = 1;
-$b = "2";
-$x = false;
-
-// example of concantenation
-echo $a . $b;		# 12
-print "$a$b";		# 12
-print "{$a}{$b}";	# 12
-print ($a . $x);	# 1
-
-// expression validation
-echo $a + $b;		# 3(?)
-
-
-// more on expression validation
-$c = "35abcd";
-echo $a + $c;		# 36
-
-// but
-$d = "abcd35";
-echo $a + $d;		# 1
-?>
-	        		</code>
-			</section>
-
-			<section>
-				<h2>Arrays</h2>
-				<div style="float:left;width:50%">
-		        	<pre>
-		        		<code>
-&lt;&#63;php
-// simple array
-$array_sample = array(1,2,"abc","def");
-
-print_r($array_sample);
-?>
-
-Array
-(
-    [0] => 1
-    [1] => 2
-    [2] => abc
-    [3] => def
-)
-		        		</code>
-		        	</pre>
-	        	</div>
-				<div style="float:left;width:49%;border-left:1px dotted #fff;">
-		        	<pre>
-		        		<code>
-&lt;&#63;php
-// simple array
-$array_sample = array(1,2,"xyz");
-
-var_dump<($array_sample);
-?>
-
-array(3) {
-  [0]=>
-  int(1)
-  [1]=>
-  int(2)
-  [2]=>
-  string(3) "xyz"
-}		        		</code>
-		        	</pre>
-	        	</div>
+				<h2>How-to</h2>
+				<p>
+					The most common way to connect to a MySQL database is by using <b>mysqli</b> or <b>PDO</b> classes.
+				</p>
 			</section>
 			<section>
-				<h2>Function Declarations</h2>
-	        	<pre>
-	        		<code>
+				<h2>How-to <span class="grey small">(cont)</span></h2>
+				<pre>
+					<code>
 &lt;&#63;php
-function helloWorld()
-{
-	echo 'It\'s not hello world anymore, ';
-	echo "it's something else :)";
-}	        		
+#
+# mysqli
+#
+$dbh = new mysqli('localhost', 'webuser', 'webpass', 'your_db');
+$result = $dbh->query("SELECT `your_column_name` FROM `your_table`");
+$row = $result->fetch_assoc();
+echo $row['your_column_name'];
+
+$dbh->close(); # close database connection
 
 
-function hello_world()
-{
-	$a = 'It\'s not hello world anymore, ';
-	$b = "it's something else :)";
+#
+# PDO
+#
+$dbh = new PDO('mysql:host=localhost;dbname=your_db', 'webuser', 'webpass');
+$result = $dbh->query("SELECT `your_column_name` FROM `your_table`");
+$row = $result->fetch(PDO::FETCH_ASSOC);
+echo $row['your_column_name'];
 
-	return $a . $b;
-}	        		
+$dbh = null; # close database connection
 
-helloWorld();
-echo hello_world();
-?>
-
-It's not hello world anymore, it's something else :)
-It's not hello world anymore, it's something else :)
-	        		</code>
-	        	</pre>
-	        </section>
-	        <section>
-	        	<h2>Conditional Logic</h2>
-	        	<pre>
-	        		<code>
-&lt;&#63;php
-if (true) echo 'always executed';
-if (false) echo 'not coming here ever';
-
-$a = 'false';
-if ($a) echo 'yo!';
-if ((int)$a) echo 'yay!';
-
-$b = null;
-if ($b) echo 'null wont be here';
-else if ($b == "null") echo 'not here either';
-else if ($b === null) echo 'null is here';
-else {
-	echo "hmmm...";
-}
-?>
-	        		</code>
-	        	</pre>
-	        </section>
-	        <section>
-	        	<h2>Loops</h2>
-	        	<pre>
-	        		<code>
-&lt;&#63;php
-$n = array(1,2,5,10);
-
-foreach ($n as $whatever) {
-	echo $whatever .'-';
-}
-
-# this will throw an exception
-# because $n is an index-based array
-for ($i=0; $i<5; $i++) {
-	echo $n[$i];
-}
-?>
-	        		</code>
-	        	</pre>
-
-	        	<p>
-	        		Loops include C-like implementations, ie <b>do..while</b> and <b>while</b> loops.
-	        	</p>
-	        </section>
-	        <section>
-	        	<h2>Switch</h2>
-	        	<p>
-	        		An example of a <b>switch</b> statement
-	        	</p>
-	        	<pre>
-	        		<code>
-&lt;&#63;php
-$chicken_is = 'sick';
-
-switch ($chicken_is) {
-    case 'sick':
-        echo "The chicken is {$chicken_is}. Poor little chicken.";
-        break;
-
-    case 'dead':
-    	echo 'You killed the chicken! I heychu!';
-    	break;
-
-    default:
-    	echo 'The chicken looks okaaay --- so far';
-    	break;
-}
-?>
-	        		</code>
-	        	</pre>
-	        </section>
+					</code>
+				</pre>
+			</section>
 		</section>
     </div>
 </div>
 
 <footer>
 	<p>
-		PHP/MySQL: The Basics
+		<b>PHP/MySQL</b>: The Basics
 	</p>
 </footer>
 

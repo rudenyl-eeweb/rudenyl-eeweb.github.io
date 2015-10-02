@@ -34,22 +34,47 @@
 
 		<section>
 			<p>
-				MySQL is an open source database management software that helps users store, organize, and retrieve data. It is a very powerful program with a lot of flexibility—this tutorial will provide the simplest introduction to MySQL
+				MySQL is an open source database management software that helps users store, organize, and retrieve data. It is a very powerful program with a lot of flexibility — this tutorial will provide what you need to know to get started.
+				<br>
+				<br>
+				MySQL is now owned by Oracle Corporation.
 			<p>
 		</section>
 
         <section>
 	        <section>
-	            <h2>How to Access the MySQL shell</h2>
+	            <h2>Installation</h2>
 				<br />
 	            <p>
-					Once you have MySQL installed on your droplet, you can access the MySQL shell by typing the following command into terminal:
+					Download the MySQL <b>Community Edition</b> at <a href="http://dev.mysql.com/downloads/mysql/">http://dev.mysql.com/downloads/mysql/</a>
+	            </p>
+	            <br>
+	            <p>
+	            	The check the version of your current MySQL installation, type in your terminal:
 	            </p>
 	            <pre>
 	            	<code>
-mysql -u&lt;username> -p
+$ mysql --version
+mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (x86_64)
+	            	</code>
+	            </pre>
+	        </section>
 
-mysql -u &lt;username>
+	        <section>
+	            <h2>How to Access the MySQL shell</h2>
+				<br />
+	            <p>
+					Once you have MySQL installed, you can access the MySQL shell by typing the following command into terminal:
+	            </p>
+	            <pre>
+	            	<code>
+$ mysql -u &lt;username> -p
+
+$ mysql -u &lt;username>
+
+
+# -u  -- username
+# -p  -- password (you will be prompt for the password)
 	            	</code>
 	            </pre>
 	        </section>
@@ -62,7 +87,7 @@ mysql -u &lt;username>
 	            </p>
 	            <pre>
 	            	<code>
-mysql -u&lt;username> -p -h &lt;remote-domain-or-ip-address>
+$ mysql -u&lt;username> -p -h &lt;remote-domain-or-ip-address>
 	            	</code>
 	            </pre>
 	        </section>
@@ -70,16 +95,13 @@ mysql -u&lt;username> -p -h &lt;remote-domain-or-ip-address>
 	        <section>
 	            <pre>
 	            	<code>
-$ mysql -u mightymouse -p -h 192.168.11.248
+$ mysql -u mightymouse -p -h 192.168.1.10
 Enter password: 
 					</code>
-				</pre>
-
-				<pre>
 					<code>
 Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 33
-Server version: 5.5.44-MariaDB-1ubuntu0.14.04.1 (Ubuntu)
+Your MySQL connection id is 39
+Server version: 5.5.38-0ubuntu0.14.04.1 (Ubuntu)
 
 Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.
 
@@ -89,19 +111,21 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql> 
+mysql>
 	            	</code>
 	            </pre>
 	        </section>
 
 	        <section>
+				<h2>Two points to keep in mind:</h2>
 	        	<p>
-					Two points to keep in mind:
-					<br>
 					<br>
 					<ul>
-						<li>All MySQL commands end with a semicolon ";" -- if the phrase does not end with a semicolon, the command will not execute.</li>
-						<li>Also, although it is not required, MySQL commands are usually written in uppercase and databases, tables, usernames, or text are in lowercase as a convention. However, the MySQL command line is not case sensitive.</li>
+						<li>All MySQL commands (mostly) end with a semicolon ";" -- if the phrase does not end with a semicolon, the command will not execute.</li>
+						<li>Also, although it is not required, MySQL commands are usually written in uppercase and databases, tables, usernames, or text are in lowercase as a convention.
+						<br>
+						<br>
+						However, the MySQL command line is not case sensitive.</li>
 					</ul>
 	        	</p>
 	        </section>
@@ -109,22 +133,15 @@ mysql>
 
         <section>
 	        <section>
-	            <h2>Create/Delete Database</h2>
+	            <h2>Managing Database(s)</h2>
 				<br />
 	            <p>
 					MySQL organizes its information into databases; each one can hold tables with specific data. You can quickly check what databases are available by typing:
 	            </p>
 	            <pre>
 	            	<code>
-SHOW DATABASES;
-					</code>
-	            </pre>
-	        </section>
-	        <section>
-	            <p>The output screen should look something like this:</p>
-	            <pre>
-	            	<code>
 mysql> SHOW DATABASES;
+
 +--------------------+
 | Database           |
 +--------------------+
@@ -134,7 +151,7 @@ mysql> SHOW DATABASES;
 | test               |
 +--------------------+
 4 rows in set (0.01 sec)
-	            	</code>
+					</code>
 	            </pre>
 	        </section>
 
@@ -142,15 +159,17 @@ mysql> SHOW DATABASES;
 	            <p>Creating a database is very easy:</p>
 	            <pre>
 	            	<code>
-CREATE DATABASE database_name;
+mysql> CREATE DATABASE database_name;
+
+# or use with a back tick "`"
+mysql> CREATE DATABASE `my_database`;
 					</code>
 	            </pre>
 
-	            <br>
 	            <p>In MySQL, the phrase most often used to delete objects is Drop. You would delete a MySQL database with this command:</p>
 	            <pre>
 	            	<code>
-DROP DATABASE database_name;
+mysql> DROP DATABASE database_name;
 					</code>
 	            </pre>
 	        </section>
@@ -159,13 +178,19 @@ DROP DATABASE database_name;
         <section>
 	        <section>
 	            <h2>How to Access a MySQL Database</h2>
-				<br />
 	            <p>
 					Once we have a new database, we can begin to fill it with information. The first step is to create a new table within the larger database. Let’s open up the database we want to use:
 	            </p>
 	            <pre>
 	            	<code>
-USE database_name;
+mysql> USE database_name;
+					</code>
+	            	<code>
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql>
 					</code>
 	            </pre>
 	        </section>
@@ -173,7 +198,7 @@ USE database_name;
 	            <p>In the same way that you could check the available databases, you can also see an overview of the tables that the database contains.</p>
 	            <pre>
 	            	<code>
-SHOW tables;
+mysql> SHOW tables;
 	            	</code>
 	            </pre>
 
@@ -191,34 +216,38 @@ SHOW tables;
 		</section>
 
 		<section>
-			<section>
+			<section style="font-size:95%">
 				<p>
 					A table is a collection of related data held in a structured format within a database. It consists of fields (columns), and rows.
 				</p>
-				<p>In relational databases and flat file databases, a table is a set of data elements (values) using a model of vertical columns (which are identified by their name) and horizontal rows, the cell being the unit where a row and column intersect. A table has a specified number of columns, but can have any number of rows. Each row is identified by one or more values appearing in a particular column subset. The columns subset which uniquely identifies a row is called the primary key.
+				<p>
+					In relational databases and flat file databases, a table is a set of data elements (values) using a model of vertical columns (which are identified by their name) and horizontal rows, the cell being the unit where a row and column intersect.
+				</p>
+				<p>
+					A table has a specified number of columns, but can have any number of rows. Each row is identified by one or more values appearing in a particular column subset. The columns subset which uniquely identifies a row is called the primary key.
 				<p>
 			</section>
 
 			<section>
-				<p>Creating a simple table</p>
+				<h2>Creating a simple table</h2>
 
 				<pre>
 					<code>
-CREATE TABLE sample_table (
-	`id` INT NOT NULL AUTO_INCREMENT, 
-	`name` VARCHAR(20),
-	`date_added` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-	`published` TINYINT(1),
+mysql> CREATE TABLE sample_table (
+    `id` INT NOT NULL AUTO_INCREMENT, 
+    `name` VARCHAR(20),
+    `date_added` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `published` TINYINT(1),
 
-	PRIMARY KEY(`id`),
-	UNIQUE KEY(`name`)
+    PRIMARY KEY(`id`),
+    UNIQUE KEY(`name`)
 );
 					</code>
 				</pre>
 			</section>
 
 			<section>
-				<p>Breaking up the table schema build commands</p>
+				<h3>Breaking up the table schema build commands</h3>
 				<br>
 				<table>
 				<tr>
@@ -271,7 +300,7 @@ CREATE TABLE sample_table (
 			</section>
 
 			<section>
-				<h4>Display the table schema details</h4>
+				<h3>Display the table schema details</h3>
 				<br>
 				<pre>
 					<code>
@@ -293,7 +322,7 @@ mysql> DESCRIBE sample_table;
 				<h4>Altering the Table Schema</h4>
 				<br>
 				<pre>
-					<code>
+					<code style="max-height:initial !important;padding-right:10px !important;">
 mysql> ALTER TABLE sample_table DROP `published`;
 Query OK, 0 rows affected (0.01 sec)
 Records: 0  Duplicates: 0  Warnings: 0
