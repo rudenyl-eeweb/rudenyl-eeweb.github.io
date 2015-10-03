@@ -217,6 +217,99 @@ PS C:\> new-virtualenvironment flask
 		    </section>
 		</section>
 
+		<section>
+			<h1>Managing<br />HTML Forms</h1>
+		</section>
+		<section>
+			<section>
+				The following sections will introduce you the basic way to process form data.
+			</section>
+
+			<section>
+		    	<h2>Form Template</h2>
+		    	<p>
+		    		Our form template will look like below:
+		    	</p>
+		    	<pre>
+		    		<code>
+{% extends "base_layout.html" %}
+
+{% block title %}{{ super() }} Add Member {% endblock %}
+{% block body %}
+    {% if request.args %}
+        &lt;h3>GET DATA&lt;/h3>
+        &lt;ol>
+        {% for k,v in request.args.items() %}
+            &lt;li>{{ k }} ---> {{ v }} &lt;/li>
+        {% endfor %}
+        &lt;/ol>
+    {% endif %}
+
+    &lt;h3>Flash Messages&lt;/h3>
+    &lt;ul>
+    {% for message in get_flashed_messages() %}
+        &lt;li>{{ message }}&lt;/li>
+    {% endfor %}
+    &lt;/ul>
+
+    &lt;form method="POST" action="{{ url_for('add_member', task='store', utm_source="EEWEB") }}">
+        &lt;label>Member Name&lt;/label>
+        &lt;input type="text" name="first_name" />
+
+        &lt;br />
+        &lt;br />
+        &lt;input type="submit" value="Submit" />
+    &lt;/form>
+{% endblock %}
+		    		</code>
+		    	</pre>
+		    </section>
+			<section>
+				<h2>Our Flask Routing</h2>
+				<p>
+					Our flask application route implementation will be like below:
+				</p>
+		    	<pre>
+		    		<code>
+from flask import (
+    Flask,
+    flash,
+    url_for,
+    redirect,
+    request, 
+    render_template
+)
+
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+@app.route('/members/add', methods=['GET','POST'])
+def add_member():
+    if request.method == 'GET':
+        return render_template('member_form.html')
+
+    # POST data
+    name = request.form['first_name']
+
+    # GET data
+    task = request.args.get('task')
+    utm_source = request.args.get('utm_source')
+
+    # notification
+    flash('{} is {}!'.format(name, 'save' if task is None else task))
+
+    return redirect( url_for('add_member', name=name, task=task, utm_source=utm_source) )
+
+if __name__ == '__main__':
+    app.run()
+		    		</code>
+		    	</pre>
+		    </section>
+		</section>
 
 		<!--
 		//
