@@ -870,6 +870,162 @@ echo TestClass::getType();	# class
 					</code>
 				</pre>
 			</section>
+			<section>
+				<h2>Property Visibility</h2>
+				<p>
+					Class properties must be defined as public, private, or protected. If declared using var, the property will be defined as public.
+				</p>
+				<pre style="font-size:40%">
+					<code>
+&lt;&#63;php
+class TestClass
+{
+    var $name = 1;                  # public
+    public $context = 'public';     # public
+    protected $data = 'protected';  # protected
+    private $secret = 'secret';     # private
+
+    function showData()
+    {
+        echo $this->name,
+             $this->context,
+             $this->data,
+             $this->secret;
+    }
+}
+
+
+$o = new TestClass;
+echo $o->name;      // returns 1
+echo $o->context;   // returns 'public'
+echo $o->data;      // Fatal error: Cannot access protected property
+echo $o->secret;    // Fatal error: Cannot access private property
+
+$o->showData();     // displays 1, 'public', 'protected' and 'secret'
+?>
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h2>Method Visibility</h2>
+				<p style="font-size:90%">
+					Class methods may be defined as public, private, or protected. Methods declared without any explicit visibility keyword are defined as public.
+				</p>
+				<pre style="font-size:40%">
+					<code>
+&lt;&#63;php
+class TestClass
+{
+    function publicFn1() { return 'public enemy #1'; }
+    public function publicFn2() { return 'public enemy #2'; }
+    protected function protectedFn() { return 'protected by the police or politicians'; }
+    private function privateFn() { return 'under-the-table'; }
+
+    public static function showAll()
+    {
+        echo self::publicFn1(),
+             self::publicFn2(),
+             self::protectedFn();
+             self::privateFn();
+    }
+}
+
+
+$o = new TestClass;
+echo $o->publicFn1();    // returns 'public enemy #1'
+echo $o->publicFn2();    // returns 'public enemy #2'
+echo $o->protectedFn();  // Fatal error: Call to protected method
+echo $o->privateFn();    // Fatal error: Call to private method
+
+TestClass::showAll();    // displays all :)
+?>
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h2>Method Chaining</h2>
+				<p style="font-size:90%">
+					Setting up mutator/setter methods to return the calling or original object, which in turn can call other methods
+				</p>
+				<pre style="font-size:45%">
+					<code>
+&lt;&#63;php
+class TestClass
+{
+    public $name = [];
+
+    public function setFirstName($first_name) {
+        $this->name[] = $first_name;
+        return $this;
+    }
+
+    public function setLastName($last_name) {
+        $this->name[] = $last_name;
+        return $this;
+    }
+
+    public function display() {
+        return implode(' ', $this->name);
+    }
+}
+
+
+$o = new TestClass;
+echo $o->setFirstName('John')->setLastName('Doe')->display();  // returns 'John Doe'
+?>
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h2>Object Inheritance</h2>
+				<p style="font-size:90%">
+					Inheritance is a well-established programming principle, and PHP makes use of this principle in its object model. This principle will affect the way many classes and objects relate to one another.
+				</p>
+
+				<p style="font-size:90%">
+					For example, when you extend a class, the subclass inherits all of the public and protected methods from the parent class. Unless a class overrides those methods, they will retain their original functionality.
+				</p>
+
+				<p style="font-size:90%">
+					This is useful for defining and abstracting functionality, and permits the implementation of additional functionality in similar objects without the need to reimplement all of the shared functionality.
+				</p>
+			</section>
+			<section>
+				<h2>Object Inheritance</h2>
+				<p style="font-size:90%">
+					Example of Class inheritance
+				</p>
+				<pre style="font-size:45%">
+					<code>
+&lt;&#63;php
+class BaseClass
+{
+    protected $class = 'baseclass';
+    private $secret = 'secret';
+
+    public function getClass() {
+        return $this->class;
+    }
+
+    protected function getSecret() {
+        return $this->secret;
+    }
+}
+
+class FirstClass extends BaseClass
+{
+    public $class = 'firstclass';   # property visibility is overridden
+
+    public function getClass() {
+        return get_class($this);    # method functionality is overridden
+    }
+}
+
+echo (new FirstClass)->getClass();  // return 'FirstClass'
+?>
+					</code>
+				</pre>
+			</section>
 		</section>
         
 		<section>
