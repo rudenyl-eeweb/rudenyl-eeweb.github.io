@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python Basics</title>
+<meta name="description" content="Python Basics">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="assets/reveal.js/css/reveal.css">
+<link rel="stylesheet" href="assets/reveal.js/css/theme/black.css" id="theme">
+
+<!-- Code syntax highlighting -->
+<link rel="stylesheet" href="assets/reveal.js/lib/css/zenburn.css">
+
+<!-- Custom overrides -->
+<link rel="stylesheet" href="assets/css/overrides.css">
+
+<!--[if lt IE 9]>
+<script src="assets/reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+
+<style>
+	.dim {color: #a9a9a9 !important;}
+	.bright {color:#fff !important;}
+	.centered {text-align: center !important;}
+	table.centered td {text-align: center !important;}
+	table.tabular td {text-align: center !important; border-right:1px solid #ccc;}
+	table.tabular td:last-child {text-align: center !important; border-right:0;}
+</style>
+
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<!-- 
+		Introduction 
+		//-->
+		<section>
+			<h1>Python</h1>
+			<h4 class="dim">Basics for Engineers</h4>
+		</section>
+        <section>
+	        <section>
+	            <h2>Coverage</h2>
+				<br />
+				<ul class="dim">
+					<li>Python types (strings, lists, dicts, etc)</li>
+					<li>Conditional statements</li>
+					<li>Loops</li>
+					<li>List comprehension</li>
+					<li>Exception Handling</li>
+					<li>Functions and Classes</li>
+					<li>File I/O and Modules</li>
+					<li>Overview of standard libraries, packaging and tools</li>
+				</ul>
+	        </section>
+
+	        <section>
+	            <h2>Versions</h2>
+				<br>
+				<ul class="dim">
+					<li>
+						<h3 style="margin-bottom:5px;">Python 2.<span style="text-transform:lowercase">x</span></h3>
+						- Some libraries only works in Python 2.*
+						<br />
+						- Python 2.7 (current of 2.x branch) was started back in 2010 and will end it's support in 2020
+					</li>
+					<li style="list-style:none;"><br/></li>
+					<li>
+						<h3 style="margin-bottom:5px;">Python 3.<span style="text-transform:lowercase">x</span></h3>
+						- Getting the majority of Python's current development
+						<br>
+						- Future of Python
+					</li>
+				</ul>
+			</section>
+
+	        <section>
+	            <h2>History</h2>
+				<br>
+				<ul class="dim">
+					<li>General-purpose programming language</li>
+					<li>Multi-paradigm (OOP, FP, procedural, ...)</li>
+					<li>Dynamic and strongly-typed</li>
+					<li>Created in the late 1980s; released in 1991</li>
+					<li>Created and designd by Guido van Rossum</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Installation</h2>
+				<br>
+				<span class="dim">
+					https://www.python.org/downloads/
+				</span>
+			</section>
+
+			<section>
+				<h2>IDE / Shell</h2>
+				<br>
+				<ul class="dim">
+					<li>Command Prompt / PowerShell / Terminal</li>
+					<li>Text Editors (Sublime Text, VS Code, Atom, ...)</li>
+					<li>IDLE, Thonny</li>
+					<li>PyCharm</li>
+				</ul>
+			</section>
+		</section>
+
+		<!-- 
+		Style Guide 
+		//-->
+		<section>
+		    <h1>Style Guide</h1>
+		</section>
+		<section>
+	        <section>
+	            <h3>Coding Styles and Conventions</h3>
+				<br>
+				<span class="dim" style="font-size:80%">
+					https://www.python.org/dev/peps/pep-0008/
+					<br>
+					http://docs.python-guide.org/en/latest/writing/style/
+				</span>
+				<pre>
+					<code>
+# This is a comment.
+
+"""
+This is a multi-line comment. 
+Single quotes can also be used.
+"""
+
+# Spaces are the preferred indentation over tabs.
+# Don't mixed tabs and spaces for indentation.
+# Use 4 spaces per indentation level (optional).
+					</code>
+				</pre>
+			</section>
+
+	        <section>
+				<h3>Keywords</h3>
+				<p class="dim" style="font-size:80%">
+					Keywords are the reserved words in Python.
+					<br>						
+					We cannot use a keyword as variable name, function name or any other identifier. 
+					They are used to define the syntax and structure of the Python language.					
+				</p>
+				<table class="centered tabular" style="font-size:80%">
+				<tr>
+					<td>False</td>
+					<td>class</td>
+					<td>finally</td>
+					<td>is</td>
+					<td>return</td>
+				</tr>
+				<tr>
+					<td>None</td>
+					<td>continue</td>
+					<td>for</td>
+					<td>lambda</td>
+					<td>try</td>
+				</tr>
+				<tr>
+					<td>True</td>
+					<td>def</td>
+					<td>from</td>
+					<td>nonlocal</td>
+					<td>while</td>
+				</tr>
+				<tr>
+					<td>and</td>
+					<td>del</td>
+					<td>global</td>
+					<td>not</td>
+					<td>with</td>
+				</tr>
+				<tr>
+					<td>as</td>
+					<td>elif</td>
+					<td>if</td>
+					<td>or</td>
+					<td>yield</td>
+				</tr>
+				<tr>
+					<td>assert</td>
+					<td>else</td>
+					<td>import</td>
+					<td>pass</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>break</td>
+					<td>except</td>
+					<td>in</td>
+					<td>raise</td>
+					<td></td>
+				</tr>
+				</table>
+			</section>
+
+	        <section>
+				<h2>Data Types</h2>
+				<br>
+				<ul class="dim">
+					<li>Numbers</li>
+					<li>String</li>
+					<li>List</li>
+					<li>Tuple</li>
+					<li>Dictionary</li>
+				</ul>
+			</section>
+
+	        <section>
+				<h3>Things to care about</h3>
+				<p class="dim" style="font-size:80%">
+					Python is a case-sensitive language. This means, <span class="bright">Variable</span> and <span class="bright">variable</span> are not the same. 
+					Always name identifiers that make sense.
+					<br>
+					<br>
+					While, <span class="bright">c = 10</span> is valid. Writing <span class="bright">count = 10</span> would make more sense and it would be easier to 
+					figure out what it does even when you look at your code after a long gap.
+					<br>
+					<br>
+					Multiple words can be separated using an underscore, ie. <span class="bright">this_is_a_long_variable</span>
+					<br>
+					<br>
+					We can also use camel-case style of writing, i.e., capitalize every first letter of the word 
+					except the initial word without any spaces. ie, <span class="bright">camelCaseExample</span>
+				</p>
+			</section>
+		</section>
+
+		<!-- 
+		Standard Data Types 
+		//-->
+		<section>
+		    <h1>Standard <br>Data Types</h1>
+		</section>
+		<section>
+	        <section>
+	            <h2>Numbers</h2>
+				<br>
+				<span class="dim">
+					Number data types store numeric values. Number objects are created when you assign a value to them.
+				</span>
+				<pre>
+					<code>
+num1 = 2017   # For long integer, 
+              # the "L" suffix is only supported in Python 2.x
+num2 = 1.5 
+num3 = 8j						
+					</code>
+				</pre>
+			</section>
+
+	        <section>
+	            <h2>Strings</h2>
+				<br>
+				<span class="dim">
+					Identified as a contiguous set of characters represented in the quotation marks. 
+					Python allows for either pairs of single or double quotes.
+				</span>
+				<pre>
+					<code>
+str = "This string has a \tab, isn't it?"
+
+print(str)           # Prints the whole string
+print(str[0])        # Prints the first character
+print(str[1:5])      # Prints characters starting from 2nd to 5th
+print(str * 2)       # Prints the string twice
+print(str + 'Yes')   # Prints a concantenated string
+					</code>
+				</pre>
+			</section>
+			
+	        <section>
+	            <h2>Lists</h2>
+				<br>
+				<span class="dim">
+						A list a sequence of objects separated by commas and enclosed in square brackets ([]) similar to arrays in C.
+						<br>
+						Items in a list can be of any type.
+				</span>
+				<pre>
+					<code>
+list = [2017, 1.5, 8j, "This string has a \tab, isn't it?"]
+
+print(list)            # Prints all the list items
+print(list[-1])        # Prints the last element of the list
+print(list[:-2])       # Prints all items except the last two elements
+print(list * 2)        # Prints the list twice
+print(list + [9,10])   # Prints a concantenated list
+					</code>
+				</pre>
+			</section>
+			
+	        <section>
+	            <h2>Tuples</h2>
+				<br>
+				<span class="dim">
+					A tuple is another sequenced or ordered data type that is similar to a list but is enclosed in parenthesis,
+					however, tuples items cannot be modified or updated anymore.
+				</span>
+				<pre>
+					<code>
+tuple = (2017, 1.5, 8j, "This string has a \tab, isn't it?")
+
+print(tuple[:])         # Prints all the tuple items
+print(tuple[0:0])       # Prints an empty tuple
+print(tuple[::-1])      # Prints the items in reversed order
+print(tuple * 2)        # Prints the tuple twice
+print(tuple + (9,10))   # Prints a concantenated tuple
+					</code>
+				</pre>
+			</section>
+			
+	        <section>
+	            <h2>Dictionary</h2>
+				<br>
+				<span class="dim">
+					An unordered associative array (hashes) where any key of the dictionary is mapped to a value, 
+					often referred to as key-value pair.
+					Dictionaries are enclosed in curly braces and like lists and tuples, values of a dictionary can be any data type.
+				</span>
+				<pre>
+					<code>
+dict = {
+    'name': 'Jon Snow',
+    8j: 2017
+}
+
+print(dict)             # Prints the whole dictionary
+print(dict['name'])     # Prints the value for the key named 'name'
+					</code>
+				</pre>
+			</section>
+			
+	        <section>
+	            <h2>Type Conversion</h2>
+				<br>
+				<span class="dim">
+					Python defines type conversion functions to directly convert one data type to another.
+				</span>
+				<table style="font-size:90%">
+				<tr>
+					<th>Function</th>
+					<th>Description</th>
+				</tr>
+				<tr>
+					<td>int(x)</td>
+					<td class="dim">Converts x to an integer.</td>
+				</tr>
+				<tr>
+					<td>float(x)</td>
+					<td class="dim">Converts x to a floating point number.</td>
+				</tr>
+				<tr>
+					<td>char(x)</td>
+					<td class="dim">Converts an integer to a character.</td>
+				</tr>
+				<tr>
+					<td>list(x)</td>
+					<td class="dim">Converts x to a list.</td>
+				</tr>
+				<tr>
+					<td>tuple(x)</td>
+					<td class="dim">Converts x to a tuple.</td>
+				</tr>
+				<tr>
+					<td>bool(x)</td>
+					<td class="dim">Converts x to a boolean type.</td>
+				</tr>
+				</table>
+			</section>
+
+	        <section>
+				<h2>Where's my Boolean?</h2>
+				<br>
+				<p class="dim">
+					Boolean type was introduced with the primary goal of making goal clearer and 
+					two new constants where introduced, <span class="bright">True</span> and <span class="bright">False</span>.
+					<br>
+					<br>
+					The Boolean type is a subclass of the <span class="bright">int</span> class so that arithmetic using a Boolean still works.
+				</p>
+			</section>
+
+	        <section>
+				<h2>Constants</h2>
+				<br>
+				<p class="dim">
+					A small number of constants live in the built-in namespace.
+				</p>
+				<ul>
+					<li>True</li>
+					<li>False</li>
+					<li>None</li>
+					<li class="dim">NotImplemented</li>
+					<li class="dim">Ellipsis</li>
+					<li class="dim">__debug__</li>
+				</ul>
+			</section>
+		</section>
+
+		<!-- 
+		Python Operators 
+		//-->
+		<section>
+			<h1>Python Operators</h1>
+		</section>
+		<section>
+	        <section>
+	            <h2>Python Operators</h2>
+				<br>
+				<p class="dim" style="font-size:90%">
+					Operators are special symbols in Python that carry out arithmetic or logical computation. 
+					Operators are classified below:
+				</p>
+				<br>
+				<ul>
+					<li>Arithmetic operators</li>
+					<li>Comparison (Relational) operators</li>
+					<li>Logical (Boolean) operators</li>
+					<li>Bitwise operators</li>
+					<li>Assignment operators</li>
+					<li>Special operators</li>
+				</ul>
+			</section>
+			
+	        <section>
+	            <h3>Arithmetic operators</h3>
+				<br>
+				<p class="dim" style="font-size:80%;margin-top:-20px;">
+					Arithmetic operators are used to perform mathematical operations like addition, subtraction, multiplication etc.
+				</p>
+				<table style="font-size:80%">
+				<tr>
+					<th>Operator</th>
+					<th>Meaning</th>
+				</tr>
+				<tr>
+					<td align="center">+</td>
+					<td class="dim">Add two operands or unary plus</td>
+				</tr>
+				<tr>
+					<td align="center">-</td>
+					<td class="dim">Subtract right operand from the left or unary minus</td>
+				</tr>
+				<tr>
+					<td align="center">*</td>
+					<td class="dim">Multiply two operands</td>
+				</tr>
+				<tr>
+					<td align="center">/</td>
+					<td class="dim">Divide left operand by the right one (always results into float)</td>
+				</tr>
+				<tr>
+					<td align="center">%</td>
+					<td class="dim" style="font-size:90%">Modulus - remainder of the division of left operand by the right</td>
+				</tr>
+				<tr>
+					<td align="center">//</td>
+					<td class="dim" style="font-size:90%">Floor division - division that results into whole number adjusted to the left in the number line</td>
+				</tr>
+				<tr>
+					<td align="center">**</td>
+					<td class="dim">Exponent - left operand raised to the power of right</td>
+				</tr>
+				</table>
+			</section>
+			
+	        <section>
+	            <h3>Comparison operators</h3>
+				<br>
+				<p class="dim" style="font-size:80%;margin-top:-20px;">
+					Comparison operators are used to compare values. It either returns True or False according to the condition.
+				</p>
+				<table style="font-size:80%">
+				<tr>
+					<th>Operator</th>
+					<th>Meaning</th>
+				</tr>
+				<tr>
+					<td align="center">&gt;</td>
+					<td class="dim">True if left operand is greater than the right</td>
+				</tr>
+				<tr>
+					<td align="center">&lt;</td>
+					<td class="dim">True if left operand is less than the right</td>
+				</tr>
+				<tr>
+					<td align="center">==</td>
+					<td class="dim">True if both operands are equal</td>
+				</tr>
+				<tr>
+					<td align="center">!=</td>
+					<td class="dim">True if operands are not equal</td>
+				</tr>
+				<tr>
+					<td align="center">&gt;=</td>
+					<td class="dim">True if left operand is greater than or equal to the right</td>
+				</tr>
+				<tr>
+					<td align="center">&lt;=</td>
+					<td class="dim">True if left operand is less than or equal to the right</td>
+				</tr>
+				</table>
+	        </section>
+
+	        <section>
+	            <h3>Logical operators</h3>
+				<br>
+				<p class="dim">
+					Logical operators are the <span class="bright">and</span>, <span class="bright">or</span>, <span class="bright">not</span> operators.
+				</p>
+				<table>
+				<tr>
+					<th>Operator</th>
+					<th>Meaning</th>
+				</tr>
+				<tr>
+					<td align="center">and</td>
+					<td class="dim">True if both the operands are true</td>
+				</tr>
+				<tr>
+					<td align="center">or</td>
+					<td class="dim">True if either of the operands is true</td>
+				</tr>
+				<tr>
+					<td align="center">not</td>
+					<td class="dim">True if operand is false (complements the operand)</td>
+				</tr>
+				</table>
+	        </section>
+
+	        <section>
+	            <h3>Bitwise operators</h3>
+				<br>
+				<p class="dim" style="font-size:90%">
+					Bitwise operators act on operands as if they were string of binary digits. It operates bit by bit, hence the name.					
+				</p>
+				<table style="font-size:90%">
+				<tr>
+					<th>Operator</th>
+					<th>Meaning</th>
+				</tr>
+				<tr>
+					<td align="center">&amp;</td>
+					<td class="dim">Bitwise AND</td>
+				</tr>
+				<tr>
+					<td align="center">|</td>
+					<td class="dim">Bitwise OR</td>
+				</tr>
+				<tr>
+					<td align="center">~</td>
+					<td class="dim">Bitwise NOT</td>
+				</tr>
+				<tr>
+					<td align="center">^</td>
+					<td class="dim">Bitwise XOR</td>
+				</tr>
+				<tr>
+					<td align="center">&gt;&gt;</td>
+					<td class="dim">Bitwise right shift</td>
+				</tr>
+				<tr>
+					<td align="center">&lt;&lt;</td>
+					<td class="dim">Bitwise left shift</td>
+				</tr>
+				</table>
+	        </section>
+
+	        <section>
+	            <h3>Assignment operators</h3>
+				<br>
+				<p class="dim" style="font-size:90%">
+					The basic assignment operator is the equal sign ( <span class="bright">=</span> ) 
+					which assigns the value of its right operand to its left operand. 
+					That is, <span class="bright">x = y</span> assigns the value of <span class="bright">y</span> to <span class="bright">x</span>.
+					<br>
+					<br>
+					The other assignment operators are usually shorthand for standard operations, most commonly the <span class="bright">arithmetic</span> and <span class="bright">bitwise</span> operators.
+				</p>
+	        </section>
+
+	        <section>
+				<h2>Special operators</h2>
+			</section>
+
+	        <section>
+	            <h3>Identity operators</h3>
+				<br>
+				<p class="dim" style="font-size:90%">
+					<span class="bright">is</span> and <span class="bright">is not</span> are the identity operators in Python. 
+					They are used to check if two values (or variables) are located on the same part of the memory. 
+					<br>Two variables that are equal does not imply that they are identical.					
+				</p>
+				<table style="font-size:90%">
+				<tr>
+					<th>Operator</th>
+					<th>Meaning</th>
+				</tr>
+				<tr>
+					<td align="center">is</td>
+					<td class="dim">True if the operands are identical (refer to the same object)</td>
+				</tr>
+				<tr>
+					<td align="center">is not</td>
+					<td class="dim">True if the operands are not identical (do not refer to the same object)</td>
+				</tr>
+				</table>
+	        </section>
+
+	        <section>
+	            <h3>Membership operators</h3>
+				<br>
+				<p class="dim" style="font-size:90%">
+					<span class="bright">in</span> and <span class="bright">not in</span> are the membership operators in Python. 
+					They are used to test whether a value or variable is found in a sequence (string, list, tuple, set and dictionary).					
+				</p>
+				<table style="font-size:90%">
+				<tr>
+					<th>Operator</th>
+					<th>Meaning</th>
+				</tr>
+				<tr>
+					<td align="center">in</td>
+					<td class="dim">True if value/variable is found in the sequence</td>
+				</tr>
+				<tr>
+					<td align="center">not in</td>
+					<td class="dim">True if value/variable is not found in the sequence</td>
+				</tr>
+				</table>
+	        </section>
+		</section>
+    </div>
+</div>
+
+<script src="assets/reveal.js/lib/js/head.min.js"></script>
+<script src="assets/reveal.js/js/reveal.js"></script>
+<script>
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	history: true,
+	center: true,
+	transition: 'fade', // none/fade/slide/convex/concave/zoom
+	// Optional reveal.js plugins
+	dependencies: [
+		{ src: 'assets/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+		{ src: 'assets/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		{ src: 'assets/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+		{ src: 'assets/reveal.js/plugin/zoom-js/zoom.js', async: true },
+		{ src: 'assets/reveal.js/plugin/notes/notes.js', async: true }
+	]
+});
+
+</script>
+
+</body>
+</html>
