@@ -92,7 +92,7 @@
 				<h2>Installation</h2>
 				<br>
 				<span class="dim">
-					https://www.python.org/downloads/
+					<a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a>
 				</span>
 			</section>
 
@@ -119,16 +119,17 @@
 	            <h3>Coding Styles and Conventions</h3>
 				<br>
 				<span class="dim" style="font-size:80%">
-					https://www.python.org/dev/peps/pep-0008/
+					For preferred code styling and conventions, refer to the links below:
+					<a href="https://www.python.org/dev/peps/pep-0008/">https://www.python.org/dev/peps/pep-0008/</a>
 					<br>
-					http://docs.python-guide.org/en/latest/writing/style/
+					<a href="http://docs.python-guide.org/en/latest/writing/style/">http://docs.python-guide.org/en/latest/writing/style/</a>
 				</span>
 				<pre>
 					<code>
 # This is a comment.
 
 """
-This is a multi-line comment. 
+This is a multi-line comment (also called docstring). 
 Single quotes can also be used.
 """
 
@@ -208,6 +209,7 @@ Single quotes can also be used.
 					<li>String</li>
 					<li>List</li>
 					<li>Tuple</li>
+					<li>Set</li>
 					<li>Dictionary</li>
 				</ul>
 			</section>
@@ -249,10 +251,42 @@ Single quotes can also be used.
 					<code>
 num1 = 2017   # For long integer, 
               # the "L" suffix is only supported in Python 2.x
-num2 = 1.5 
-num3 = 8j						
+			  
+num2 = 1.5    # floating point
+
+num3 = 8j     # complex number
 					</code>
 				</pre>
+			</section>
+			
+	        <section>
+	            <h3>Number system prefix</h3>
+				<br>
+				<span class="dim" style="font-size:90%">
+					Other number system aside from <span class="bright">decimal</span> (base 10) are <span class="bright">binary</span> (base 2), 
+					<span class="bright">hexadecimal</span> (base 16) and <span class="bright">octal</span> (base 8) number systems.
+					<br>
+					In Python, we can represent these numbers by appropriately placing a prefix before that number. 
+					Following table lists these prefix.				
+				</span>
+				<table>
+				<tr>
+					<th>Number system</th>
+					<th>Prefix</th>
+				</tr>
+				<tr>
+					<td>binary</td>
+					<td class="dim">0b or 0B</td>
+				</tr>
+				<tr>
+					<td>octal</td>
+					<td class="dim">0o or 0O</td>
+				</tr>
+				<tr>
+					<td>hexadecimal</td>
+					<td class="dim">0x or 0X</td>
+				</tr>
+				</table>
 			</section>
 
 	        <section>
@@ -264,13 +298,88 @@ num3 = 8j
 				</span>
 				<pre>
 					<code>
-str = "This string has a \tab, isn't it?"
+str1 = 'hello'
+str2 = "hello"
+str3 = "'hello world'"
+str4 = '"hello world"'
+str5 = "'single quote here'"
+str6 = """Hello
+          to the
+          world!
+       """
+					</code>
+				</pre>
+			</section>
+			
+	        <section>
+				<h3>String Concantenation</h3>
+				<br>
+				<span class="dim">
+					Joining of two or more strings into one is called <span class="bright">concatenation</span>.
+				</span>
+				<pre>
+					<code>
+# using +
+str1 = 'hello' + 'world!'
+
+# multiple string literals together
+str2 = 'hello' ' to the ' 'world!'
+
+# using ()
+str3 = ('hello'
+       ' to the'
+	   ' world')
+	   
+# using *
+print('----' * 3)
+					</code>
+				</pre>
+			</section>
+			
+	        <section>
+	            <h3>Accessing Strings</h3>
+				<br>
+				<span class="dim" style="font-size:90%">
+					We can access individual characters using indexing and a range of characters using slicing. 
+					Index starts from <span class="bright">0</span>.
+					<br>
+					Python allows negative indexing for its sequences. With this, indexes are read in reverse.
+				</span>
+				<pre>
+					<code>
+str = "Hello to the world!"
 
 print(str)           # Prints the whole string
 print(str[0])        # Prints the first character
 print(str[1:5])      # Prints characters starting from 2nd to 5th
-print(str * 2)       # Prints the string twice
-print(str + 'Yes')   # Prints a concantenated string
+print(str[-1])       # Prints the last character of the string
+print(str[::-1])     # Prints the string in reverse
+					</code>
+				</pre>
+			</section>
+
+	        <section>
+	            <h3>String Formatting</h3>
+				<br>
+				<pre>
+					<code style="font-size:90%">
+# escaped sequence						
+print('I don\'t like programming, ever!')
+
+# raw string to ignore escape sequence
+print(r"This is \x61 \ntest")
+
+# old-style formatting
+print('Hello %s!' % 'world')
+
+# preferred formatting
+print('Hello {}!'.format('world'))
+
+# order using positional argument
+print('{1} {0} ready, go!'.format(2, 1))
+
+# order using keyword argument
+print('My name is {last}, {first} {last}'.format(first='James', last='Bond'))
 					</code>
 				</pre>
 			</section>
@@ -285,13 +394,13 @@ print(str + 'Yes')   # Prints a concantenated string
 				</span>
 				<pre>
 					<code>
-list = [2017, 1.5, 8j, "This string has a \tab, isn't it?"]
+arr = [2017, 1.5, 8j, "This string has a \tab, isn't it?"]
 
-print(list)            # Prints all the list items
-print(list[-1])        # Prints the last element of the list
-print(list[:-2])       # Prints all items except the last two elements
-print(list * 2)        # Prints the list twice
-print(list + [9,10])   # Prints a concantenated list
+print(arr)            # Prints all the list items
+print(arr[-1])        # Prints the last element of the list
+print(arr[:-2])       # Prints all items except the last two elements
+print(arr * 2)        # Prints the list twice
+print(arr + [9,10])   # Prints a concantenated list
 					</code>
 				</pre>
 			</section>
@@ -305,13 +414,16 @@ print(list + [9,10])   # Prints a concantenated list
 				</span>
 				<pre>
 					<code>
-tuple = (2017, 1.5, 8j, "This string has a \tab, isn't it?")
+arr = (2017, 1.5, 8j, "This string has a \tab, isn't it?")
 
-print(tuple[:])         # Prints all the tuple items
-print(tuple[0:0])       # Prints an empty tuple
-print(tuple[::-1])      # Prints the items in reversed order
-print(tuple * 2)        # Prints the tuple twice
-print(tuple + (9,10))   # Prints a concantenated tuple
+# you can do this to (minus the parenthesis)
+arr = 2017, 1.5, 8j, "This string has a \tab, isn't it?"
+
+print(arr[:])         # Prints all the tuple items
+print(arr[0:0])       # Prints an empty tuple
+print(arr[::-1])      # Prints the items in reversed order
+print(arr * 2)        # Prints the tuple twice
+print(arr + (9,10))   # Prints a concantenated tuple
 					</code>
 				</pre>
 			</section>
@@ -340,9 +452,10 @@ print(dict['name'])     # Prints the value for the key named 'name'
 	        <section>
 	            <h2>Type Conversion</h2>
 				<br>
-				<span class="dim">
-					Python defines type conversion functions to directly convert one data type to another.
-				</span>
+				<p class="dim" style="font-size:90%">
+					Python defines type conversion functions to directly convert one data type to another, 
+					also known as <span class="bright">coercion</span>.
+				</p>
 				<table style="font-size:90%">
 				<tr>
 					<th>Function</th>
@@ -475,7 +588,8 @@ print(dict['name'])     # Prints the value for the key named 'name'
 	            <h3>Comparison operators</h3>
 				<br>
 				<p class="dim" style="font-size:80%;margin-top:-20px;">
-					Comparison operators are used to compare values. It either returns True or False according to the condition.
+					Comparison operators are used to compare values. It either returns <span class="bright">True</span> or 
+					<span class="bright">False</span> according to the condition.
 				</p>
 				<table style="font-size:80%">
 				<tr>
@@ -636,6 +750,435 @@ print(dict['name'])     # Prints the value for the key named 'name'
 				</tr>
 				</table>
 	        </section>
+		</section>
+
+		<!-- 
+		Flow Control
+		//-->
+		<section>
+			<h1>Flow Control</h1>
+		</section>
+		<section>
+	        <section>
+	            <h2>If-Else</h2>
+				<br>
+				<pre>
+					<code>
+# if statement
+if True:
+   print('Yes, it\'s true')
+
+
+# if-else statement
+if True:
+   print('Yes, it\'s true')
+else:
+   print('Nope')
+
+   
+# if-else-if statement
+num = 2
+if num > 2:
+   print('Yes, it\'s true')
+elif num < 1:
+   print('Nope')
+else:
+   print('Maybe?')
+					</code>
+				</pre>
+			</section>
+	        <section>
+	            <h3>Nested If-Else</h3>
+				<br>
+				<pre>
+					<code>
+# In this program, we input a number
+# check if the number is positive or
+# negative or zero and display
+# an appropriate message
+
+num = float(input('Enter a number: '))
+
+if num >= 0:
+   if num == 0:
+      print('Zero')
+   else:
+      print('It\'s positive!')
+else:
+   print('Nope')
+					</code>
+				</pre>
+			</section>
+
+	        <section>
+	            <h2>For-Loop</h2>
+				<br>
+				<p class="dim">
+					The for loop in Python is used to iterate over a sequence (list, tuple, string) or other iterable objects.
+					<br>
+					Iterating over a sequence is called <span class="bright">traversal</span>.
+				</p>
+				<pre>
+					<code>
+# syntax of for-loop
+for val in sequence:
+    # context here
+					</code>
+				</pre>
+			</section>
+	        <section>
+	            <h3>For-Loop Example</h3>
+				<br>
+				<pre>
+					<code>
+# prints 1, 2, 3 at a time
+arr = (1, 2, 3)
+for i in arr:
+    print(i)
+	
+
+# calculates the sum of the list
+sum = 0
+for i in arr:
+    sum += i
+	
+print(sum)    # prints 6
+					</code>
+				</pre>
+			</section>
+	        <section>
+	            <h3>For-Loop: Using range()</h3>
+				<br>
+				<p class="dim" style="font-size:80%">
+					<span class="bright">range()</span> is a built-in function that generates a sequence of numbers.
+					<br>
+					We can also define the start, stop and the increment size as <span class="bright">range(start, stop, increment)</span>.
+					By default sequence starts at <span class="bright">0</span> and the size of the increment defaults to <span class="bright">1</span> if not specified.
+				</p>
+				<pre>
+					<code>
+print(tuple(range(10)))   # prints (0,1,2,3,4,5,6,7,8,9)
+
+# display 0 -> 9 at a time
+for i in range(10, -1):
+    print(i)
+
+# prints 1,3,5,7,9
+for i in range(1,10,2):
+    print(i)
+					</code>
+				</pre>
+			</section>
+
+	        <section>
+	            <h2>While-Loop</h2>
+				<br>
+				<p class="dim">
+					The while loop in Python is used to iterate over a block of code as long as 
+					the test expression (condition) is true.
+					<br>	
+					We generally use this loop when we don't know beforehand, the number of times to iterate.
+				</p>
+				<pre>
+					<code>
+# syntax of while-loop
+while expression:
+    # context here
+					</code>
+				</pre>
+			</section>
+	        <section>
+	            <h3>While-Loop Example</h3>
+				<br>
+				<pre>
+					<code>
+# calculates the sum
+iterations = 3
+sum = 0
+i = 0
+
+while i <= iterations:
+      sum += i
+      i += i
+	  
+print(sum)    # prints 6
+					</code>
+				</pre>
+			</section>
+
+	        <section>
+	            <h2>While-Loop</h2>
+				<br>
+				<p class="dim">
+					The while loop in Python is used to iterate over a block of code as long as 
+					the test expression (condition) is true.
+					<br>	
+					We generally use this loop when we don't know beforehand, the number of times to iterate.
+				</p>
+				<pre>
+					<code>
+# syntax of while-loop
+while expression:
+    # context here
+					</code>
+				</pre>
+			</section>
+
+	        <section>
+	            <h2>Break/Continue</h2>
+				<br>
+				<p class="dim" style="font-size:90%">
+					The <span class="bright">break</span> statement terminates the loop containing it. 
+					<br>
+					Control of the program flows to the statement immediately after the body of the loop.
+					<br>
+					If break statement is inside a nested loop (loop inside another loop), 
+					break will terminate the innermost loop.
+					<br>
+					<br>
+					The <span class="bright">continue</span> statement is used to skip the rest of the code inside a loop for the 
+					current iteration only. Loop does not terminate but continues on with the next iteration.
+				</p>
+			</section>
+
+	        <section>
+	            <h2>Pass Statement</h2>
+				<br>
+				<p class="dim" style="font-size:90%">
+					In Python programming, pass is a null statement. 
+					The difference between a comment and pass statement in Python is that, 
+					while the interpreter ignores a comment entirely, pass is not ignored.
+					<br>
+					<br>
+					However, nothing happens when pass is executed.
+				</p>
+				<pre>
+					<code>
+if None:
+   pass  # don't do anything
+
+def do_it_now():
+    pass
+					</code>
+				</pre>
+			</section>
+		</section>
+
+		<!-- 
+		Functions
+		//-->
+		<section>
+			<h1>Functions</h1>
+		</section>
+		<section>
+	        <section>
+				<h2>What is a function?</h2>
+				<br>
+				<p class="dim" style="font-size:90%">
+					A function is a group of related statements that<br>perform a specific task.
+					<br>
+					Functions help break our program into smaller and modular chunks. 
+					As our program grows larger and larger, functions make it more organized and manageable.
+					<br>
+					Furthermore, it avoids repetition and makes code reusable.
+				</p>
+				<pre>
+					<code>
+# function declaration
+def function_name(parameters):
+    statement(s)
+					</code>
+				</pre>
+			</section>
+	        <section>
+				<h3>Function breakdown</h3>
+				<pre>
+					<code>
+def function_name(parameters):
+    statement(s)
+					</code>
+				</pre>
+				<ul class="dim" style="font-size:80%">
+					<li>Keyword <span class="bright">def</span> marks the start of function header.</li>
+					<li>A <span class="bright">function name</span> to uniquely identify it.</li>
+					<li><span class="bright">Parameters</span> (arguments) through which we pass values to a function (optional).</li>
+					<li>A colon ( <span class="bright">:</span> ) to mark the end of function header.</li>
+					<li>One or more valid python statements that make up the function body. Statements must have same indentation level (usually 4 spaces).</li>
+					<li>An optional return statement to return a value from the function.</li>
+				</ul>
+			</section>
+	        <section>
+				<h3>Function call</h3>
+				<pre>
+					<code>
+# Displays a message
+def say_hello():
+    print('Hello world!')
+	
+>>> say_hello()              # prints 'Hello world'
+	
+
+# This function calculates the sum of two numbers
+def add_this_numbers(num1, num2):
+    num3 = num1 + num2
+    return num3
+
+>>> add_this_numbers(1, 2)   # prints 3
+					</code>
+				</pre>
+
+				<p class="dim" style="font-size:80%">
+					The above function definitions are called <span class="bright">User-defined</span> functions.
+				</p>
+			</section>
+	        <section>
+				<h3>Built-in Functions</h3>
+				<br>
+				<p class="dim" style="font-size:80%">
+					The Python interpreter has a number of functions that are always available for use. 
+					<br>
+					<br>
+					These functions are called built-in functions. 
+					For example, <span class="bright">print()</span> function prints the given object to the screen.
+					<br>
+					<br>
+					See <a href="https://docs.python.org/3/library/functions.html">https://docs.python.org/3/library/functions.html</a> for complete of built-in Python 3.x functions.
+				</p>
+			</section>
+
+	        <section>
+				<h2>Function Arguments</h2>
+				<br>
+				<p class="dim" style="font-size:80%">
+					The arguments in the function definition bind the arguments passed at function 
+					invocation (i.e. when the function is called), which are called actual parameters, 
+					to the names given when the function is defined, which are called formal parameters.
+					<br>
+					<br>
+					Arguments can be of any type depending how the function is being defined.
+					Functions can have a fix number of arguments or could be variable, or can be optional.
+				</p>
+			</section>
+
+	        <section>
+				<h2>Variable Function Arguments</h2>
+				<br>
+				<p class="dim">
+					In Python there are other ways to define a function which can take variable number of arguments.
+					<br>
+					<br>
+					There are 3 different forms of this type.
+				</p>
+				<ul class="dim">
+					<li>Default Arguments</li>
+					<li>Keyword Arguments</li>
+					<li>Arbitrary Arguments</li>
+				</ul>
+			</section>
+	        <section>
+				<h3>Default Arguments</h3>
+				<br>
+				<p class="dim">
+					Function arguments can have default values in Python.
+					<br>	
+					To provide a default value to an argument by using the assignment operator ( <span class="bright">=</span> ).
+				</p>
+				<pre>
+					<code>
+def say_hello(msg, prefix='Hello'):
+    print(prefix, msg)
+	
+
+>>> say_hello('world')                   # prints "Hello world"
+>>> say_hello('to the world', 'hi,')     # prints "hi, to the world"
+					</code>
+				</pre>
+			</section>
+	        <section>
+				<h3>Keyword Arguments</h3>
+				<br>
+				<p class="dim">
+					When we call a function with parameters, 
+					these values get assigned to the arguments according to their position.
+				</p>
+				<pre>
+					<code>
+def say_hello(msg, prefix='Hello'):
+    print(prefix, msg)
+	
+
+# 2 keyword arguments, unordered
+>>> say_hello(prefix='Yes', msg='yo!')
+
+# 1 positional, 1 keyword argument
+>>> say_hello('to the world', prefix='hi!')
+					</code>
+				</pre>
+			</section>
+	        <section>
+				<h3>Arbitrary Arguments</h3>
+				<br>
+				<p class="dim" style="font-size:80%">
+					The special syntax, <span class="bright">*args</span> and <span class="bright">**kwargs</span> in function definitions is used to pass a 
+					variable number of arguments to a function. 
+					<br>
+					The single asterisk form ( <span class="bright">*args</span> ) is used to pass a <span class="bright">non-keyworded</span>, 
+					variable-length argument list, and the <span class="bright">double asterisk</span> form is used to pass a <span class="bright">keyworded</span>, 
+					variable-length argument list.
+					<br>
+					The asterisk denotation ( <span class="bright">*</span> ) used is also referred to as 
+					the <span class="bright">splat operator</span>.
+				</p>
+				<pre>
+					<code>
+def say_hello(*msgs):
+    for msg in msgs:
+        print(msg)
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<h2>Anonymous Functions</h2>
+				<br>
+				<p class="dim" style="font-size:80%">
+					In Python, anonymous function is a function that is<br>defined <span class="bright">without a name</span>.
+					<br>
+					While normal functions are defined using the <span class="bright">def</span> keyword, 
+					in Python anonymous functions are defined using the <span class="bright">lambda</span> keyword.
+					<br>
+					Hence, anonymous functions are also called <span class="bright">lambda functions</span>.
+				</p>
+				<pre>
+					<code>
+# syntax
+lambda arguments: expression
+					</code>
+				</pre>
+				<p class="dim" style="font-size:80%;margin-top:-30px;">
+					Lambda functions can have any number of arguments but <span class="bright">only one expression</span>. 
+					The expression is evaluated and returned. 
+				</p>
+			</section>
+	        <section>
+				<h3>Example of Lambda Function</h3>
+				<pre>
+					<code>
+# calculates the nth power of a number
+npower = lambda x,y: x ** y
+					</code>
+				</pre>
+				<p class="dim" style="font-size:80%;">
+					The above lambda function can be expressed in a similar using the usual function definition as below:
+				</p>
+				<pre>
+					<code>
+# calculates the nth power of a number
+def npower(x,y):
+    return x ** y
+					</code>
+				</pre>
+			</section>
 		</section>
     </div>
 </div>
