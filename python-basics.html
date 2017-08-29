@@ -51,7 +51,7 @@
 					<li>List comprehension</li>
 					<li>Exception Handling</li>
 					<li>Functions and Classes</li>
-					<li>File I/O and Modules</li>
+					<li>Files I/O and Modules</li>
 					<li>Overview of standard libraries, packaging and tools</li>
 				</ul>
 	        </section>
@@ -102,7 +102,7 @@
 				<ul class="dim">
 					<li>Command Prompt / PowerShell / Terminal</li>
 					<li>Text Editors (Sublime Text, VS Code, Atom, ...)</li>
-					<li>IDLE, Thonny</li>
+					<li>Jupyter, IDLE, Thonny</li>
 					<li>PyCharm</li>
 				</ul>
 			</section>
@@ -326,9 +326,9 @@ str1 = 'hello' + 'world!'
 str2 = 'hello' ' to the ' 'world!'
 
 # using ()
-str3 = ('hello'
-       ' to the'
-	   ' world')
+str3 = ('hello '
+        'to the '
+        'world')
 	   
 # using *
 print('----' * 3)
@@ -907,24 +907,6 @@ print(sum)    # prints 6
 			</section>
 
 	        <section>
-	            <h2>While-Loop</h2>
-				<br>
-				<p class="dim">
-					The while loop in Python is used to iterate over a block of code as long as 
-					the test expression (condition) is true.
-					<br>	
-					We generally use this loop when we don't know beforehand, the number of times to iterate.
-				</p>
-				<pre>
-					<code>
-# syntax of while-loop
-while expression:
-    # context here
-					</code>
-				</pre>
-			</section>
-
-	        <section>
 	            <h2>Break/Continue</h2>
 				<br>
 				<p class="dim" style="font-size:90%">
@@ -1169,13 +1151,533 @@ npower = lambda x,y: x ** y
 					</code>
 				</pre>
 				<p class="dim" style="font-size:80%;">
-					The above lambda function can be expressed in a similar using the usual function definition as below:
+					The above lambda function can be expressed in a similar way using the usual function definition as below:
 				</p>
 				<pre>
 					<code>
 # calculates the nth power of a number
 def npower(x,y):
     return x ** y
+					</code>
+				</pre>
+			</section>
+		</section>
+		
+		<!-- 
+		Files I/O
+		//-->
+		<section>
+			<h1>Files I/O</h1>
+		</section>
+		<section>
+	        <section>
+				<h2>Screen Ouput</h2>
+				<br>
+				<p class="dim" style="font-size:90%">
+					Sends output to the screen, which is the standard ouput pipe.
+				</p>
+				<pre>
+					<code>
+"""
+The following examples displays similarly
+"""
+print("Hello" + " to the " + "world")
+print("hello", "to", "the", "world")
+
+str = ("hello", "to", "the", "world")
+for s in str:
+    print(s, end=' ')
+					</code>
+				</pre>
+				<p class="dim" style="font-size:90%">
+					On the other hand, print output can also be logged to a file.
+				</p>
+			</section>
+	        <section>
+				<h2>Keyboard Input</h2>
+				<br>
+				<p class="dim" style="font-size:90%">
+					Python provides two built-in functions to read a line of text from standard input, 
+					which by default comes from the keyboard. 
+				</p>
+				<pre>
+					<code>
+name = input("Enter your name: ")
+print("Hi ", name)
+					</code>
+				</pre>
+				<p class="dim" style="font-size:90%">
+					In Python 2.x, input string will be automatically evaluated. To evalute data input in Python 3.x,
+					you have to explicitly call the <span class="bright">eval()</span> method.
+				</p>
+			</section>
+	        <section>
+				<h3>Command-line Argument</h3>
+				<br>
+				<p class="dim" style="font-size:80%;margin-top:-20px;">
+					Of course, we might want to accept user input as arguments to our program 
+					rather than after it starts.
+					<br>
+					<span class="bright">argv</span> is a list containing all the command line arguments.
+				</p>
+				<pre>
+					<code style="font-size:90%">
+# test.py
+import sys
+print(sys.argv[1:])  # display the arguments
+					</code>
+				</pre>
+				<pre>
+					<code style="font-size:90%;margin-top:-50px;">
+# running the script from the command line
+$ python test.py param1 param2
+
+# outputs
+['param1', 'param2']
+					</code>
+				</pre>
+			</section>
+	        <section>
+				<h2>File Operations</h2>
+				<br>
+				<p class="dim" style="font-size:80%;margin-top:-20px;">
+					Python provides basic functions and methods necessary to manipulate files by default. 
+					You can do most of the file manipulation using a file object.
+				</p>
+				<pre>
+					<code style="font-size:90%">
+# syntax
+file object = open(file_name [, mode][, ...])
+					</code>
+				</pre>
+				<pre>
+					<code style="font-size:90%;margin-top:-50px;">
+# opens a file for reading
+fp = open('file.txt', 'r')
+
+# opens a file for writing
+fp = open('file.txt', 'w')
+					</code>
+				</pre>
+			</section>
+	        <section>
+				<h3>Open Function</h3>
+				<br>
+				<p class="dim" style="font-size:90%;margin-top:-20px;">
+					Details for the <span class="bright">open()</span> function commonly-used parameters.
+				</p>
+				<pre>
+					<code style="font-size:90%">
+# syntax
+file object = open(file_name [, mode][, ...])
+					</code>
+				</pre>
+				<table class="dim" style="font-size:80%;margin-top:-20px;">
+				<tr>
+					<td class="bright">file_name</td>
+					<td>
+						Path to the file you want to access.
+					</td>
+				</tr>
+				<tr>
+					<td class="bright">mode</td>
+					<td>
+						Determines the mode in which the file has to be opened, i.e., 
+						read, write, append, etc. This is an optional parameter and the default file access mode is read (r).
+					</td>
+				</tr>
+				</table>
+				<br>
+				<p class="dim" style="font-size:80%;margin-top:-10px;">
+					To see complete parameter details, enter the command <span class="bright">help(open)</span> 
+					in your Python shell.
+				</p>
+			</section>
+	        <section>
+				<h3>File Read</h3>
+				<pre>
+					<code style="font-size:80%">
+fp = open("file.txt")    # Open file for reading
+while True:
+    str = fp.read(10)    # read 10 bytes
+    if str == '':
+       break
+    print(str)
+fp.close()               # close opened file (important)
+					</code>
+				</pre>
+				<p class="dim" style="font-size:85%;margin-top:-40px;">
+					Preferred way of reading file in Python. 
+					The <span class="bright">with</span> statement handles opening and closing the file, 
+					including if an exception is raised in the inner block. 
+				</p>
+				<pre>
+					<code style="font-size:90%;margin-top:-20px;">
+with open('file.txt') as fp:
+     for str in fp:
+         print(str)
+					</code>
+				</pre>
+			</section>
+	        <section>
+				<h3>File Write</h3>
+				<p class="dim" style="font-size:90%">
+					The <span class="bright">write()</span> method writes any string to an open file.
+					<br>
+					It is important to note that Python strings can have binary data and not just text.
+					Also, the <span class="bright">write()</span> method does not add a newline character 
+					( <span class="bright">'\n'</span> ) to the end of the string.
+				</p>
+				<pre>
+					<code style="font-size:90%">
+# Open file for writing						
+fp = open("file.txt", "wb")   
+fp.write("Hello to the world!\n");
+
+# close opened file (important)
+fp.close()
+					</code>
+				</pre>
+				<p class="dim" style="font-size:85%">
+					To see other methods for file operations, use <span class="bright">help(&lt;file object&gt;)</span>.
+				</p>
+			</section>
+		</section>
+		
+		<!-- 
+		Exception Handling
+		//-->
+		<section>
+			<h1>Exception<br>Handling</h1>
+		</section>
+		<section>
+	        <section>
+				<h2>Exception Handling</h2>
+				<br>
+				<p class="dim" style="font-size:90%">
+					Python provides two very important features to handle any unexpected error in your Python programs and to add debugging capabilities in them. They are:
+				</p>
+				<br>
+				<ul>
+					<li>Exception Handling</li>
+					<li class="dim">Assertion</li>
+				</ul>
+			</section>
+	        <section>
+				<h3>Exception Pseudo-code Breakdown</h3>
+				<pre>
+					<code style="max-height:800px">
+try:
+    pass
+except SomeException:
+    # Handle a instance of SomeException or a subclass of it.
+    pass
+except Exception:
+    # Handle any other exception that inherits from Exception
+    # doesn't include GeneratorExit, KeyboardInterrupt, SystemExit
+    pass
+else:
+    # there was no exception whatsoever
+    # if no exception, the "something()" gets evaluated, 
+    # return statement will be executed unless a return statement
+    # is specified in the 'finally' block
+    pass
+finally:
+    # this block will execute no matter what, even if no exception,
+    # after "something" is eval'd but before that value is returned
+    # but even if there is an exception.
+					</code>
+				</pre>
+			</section>
+	        <section>
+				<h3>Exception Handling Example</h3>
+				<pre>
+					<code style="max-height:800px">
+fp = None
+try:
+    # Open file for read + writing
+    fp = open('test.txt', 'r+')
+    fp.write('Hello to the world!')
+	
+except IOError as e:
+    # Display error
+    print('Error found:', e)
+	
+finally:
+    # Close file handle
+    if fp:
+        fp.close()						
+					</code>
+				</pre>
+			</section>
+	        <section>
+				<h2>Raising Exceptions</h2>
+				<br>
+				<p class="dim" style="font-size:85%">
+					The raise statement does two things: <span class="bright">1)</span> it creates an exception object, 
+					and; <span class="bright">2)</span> immediately leaves the expected program execution sequence to search the enclosing try statements for a matching except clause. 
+					<br>
+					<br>
+					The effect of a raise statement is to either divert execution in a matching except suite, or to stop the program because no matching except suite was found to handle the exception.
+				</p>
+				<pre>
+					<code>
+# syntax
+raise Exception([msg][, ...])
+					</code>
+				</pre>
+			</section>
+	        <section>
+				<h3>Raising Exceptions: Example</h3>
+				<pre>
+					<code>
+"""
+This program will stop and raise a generic exception
+if zero is found
+"""
+
+dividend = float(input('Enter number to divide: '))
+divisor = float(input('Enter divisor: '))
+
+if (divisor <= 0.0):
+   raise Exception('Divisor cannot be zero')
+
+print(dividend / divisor)
+					</code>
+				</pre>
+				<p class="dim" style="font-size:90%">
+					For a complete list of Exceptions and Errors, see <a href="https://docs.python.org/3/library/exceptions.html">https://docs.python.org/3/library/exceptions.html</a>
+				</p>
+			</section>
+		</section>
+		
+		<!-- 
+		List Comprehension
+		//-->
+		<section>
+			<h1>List<br>Comprehension</h1>
+		</section>
+		<section>
+	        <section>
+				<h2>What are list comprehensions?</h2>
+				<br>
+				<p class="dim" style="font-size:90%">
+					List comprehensions are a tool for transforming one list (any iterable actually) into another list. 
+					During this transformation, elements can be conditionally included in the new list and each element can be 
+					transformed as needed.
+					<br>
+					<br>
+					Every list comprehension can be rewritten as a for loop but not every for loop can be rewritten as a list comprehension.
+				</p>
+			</section>
+	        <section>
+				<h3>List comprehension example</h3>
+				<pre>
+					<code>
+# Get all even numbers between 1 and 10
+arr = []
+for i in range(1,10):
+    if i % 2 == 0:
+       arr.append(i)
+print(arr)
+					</code>
+				</pre>
+				<p class="dim" style="font-size:90%">
+					The above can be rewritten using list comprehension like below:
+				</p>
+				<pre>
+					<code>
+# Get all even numbers between 1 and 10
+arr = [i for i in range(1,10) if i % 2 == 0]
+print(arr)
+					</code>
+				</pre>
+			</section>
+		</section>
+	
+		<!-- 
+		Modules
+		//-->
+		<section>
+			<h1>Modules</h1>
+		</section>
+		<section>
+			<section>
+				<h2>Modules</h2>
+				<br>
+				<p class="dim" style="font-size:90%">
+					A module is a file containing Python definitions and statements.
+					<br>
+					The <span class="bright">file name</span> is the <span class="bright">module name</span> with the suffix, 
+					<span class="bright">.py</span> appended.
+					<br>
+					<br>
+					Recommended naming convention for modules &amp; packages:
+				</p>
+				<ul class="dim" style="font-size:90%">
+					<li>It is encouraged to use <span class="bright">short</span>, <span class="bright">all-lowercase names</span> for modules</li>
+					<li>Underscores can be used in the module name if it improves readability</li>
+					<li><span class="bright">DON'T use the dot (.) character</span> in naming modules. You will see later why this is the case.</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Importing Modules</h3>
+				<p class="dim" style="font-size:90%">
+					To use a module, we use the <span class="bright">import</span> command.
+				</p>
+				<pre>
+					<code style="font-size:90%">
+# syntax
+import &lt;module_name&gt;
+					</code>
+				</pre>
+				<pre>
+					<code style="font-size:90%;margin-top:-70px">
+# ie, load a user-defined module, math_helper.py
+import math_helper
+					</code>
+				</pre>
+				<p class="dim" style="font-size:85%;margin-top:-30px">
+					<span class="bright">import math_helper</span> imports the module <span class="bright">math_helper</span>, 
+					and creates a reference to that module in the current namespace.
+					<br>
+					In other words, after you've run this statement, you can use
+					<br>
+					<span class="bright">math_helper.&lt;objects&gt;</span> 
+					to refer to things defined in module <span class="bright">math_helper</span>.
+				</p>
+			</section>
+			<section>
+				<h3>Importing Modules</h3>
+				<p class="dim" style="font-size:90%">
+					Assume that we have this simple module:
+				</p>
+				<pre>
+					<code>
+"""
+math_helper.py
+"""
+
+PI = 3.1416
+VALUE_OF_E = 2.71828
+
+def get_the_area_of_a_circle(radius):
+    return PI * radius ** 2
+	
+def display_e():
+    print(VALUE_OF_E)
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Importing Modules</h3>
+				<p class="dim" style="font-size:85%">
+					If we import <span class="bright">hardware.py</span>, we can now access definitions 
+					and statements declared on that module.
+					<br>
+					That includes any assigned variables, defined functions, etc.
+				</p>
+				<pre>
+					<code style="font-size:90%">
+# load math_helper.py file
+import math_helper
+
+# access variables
+radius = 10
+print('Area of a circle with a radius of {radius} is: {area}'.format(
+       radius=radius,
+       area=math_helper.PI * radius ** 2
+       )
+)
+
+# invoke function
+math_helper.display_e()
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Importing Modules</h3>
+				<p class="dim" style="font-size:85%">
+					We can also specify what variables, function definitions, etc to import directly. We can rewrite the code in the 
+					previous slide like this:
+				</p>
+				<pre>
+					<code style="font-size:90%;margin-top:-20px;">
+# load math_helper.py file
+from math_helper import PI, display_e
+
+# access variables
+radius = 10
+print('Area of a circle with a radius of {radius} is: {area}'.format(
+       radius=radius,
+       area=PI * radius ** 2
+       )
+)
+
+# invoke function
+display_e()
+					</code>
+				</pre>
+				<p class="dim" style="font-size:80%;margin-top:-50px;">
+					By also using <span class="bright">from hardware import *</span>, we can now reference all public objects
+					defined on that module.
+				</p>
+			</section>
+			<section>
+				<h3>Importing Modules</h3>
+				<p class="dim" style="font-size:85%">
+					To check all references on the imported module, you can use the built-in 
+					<span class="bright">help()</span> and <span class="bright">dir()</span> functions.
+				</p>
+				<pre>
+					<code style="font-size:90%">
+>>> import math_helper
+>>> dir(math_helper)
+['PI', 'VALUE_OF_E', '__builtins__', '__cached__', '__doc__', 
+'__file__', '__loader__', '__name__', '__package__', '__spec__', 'display_e', 
+'get_the_area_of_a_circle']
+
+>>> help(math_helper)
+Help on module math_helper:
+
+NAME
+    math_helper
+
+FUNCTIONS
+    display_e()
+
+    get_the_area_of_a_circle(radius)
+
+DATA
+    PI = 3.1416
+	VALUE_OF_E = 2.71828
+	
+FILE
+    /path/to/math_helper.py
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Executing Modules as Scripts</h3>
+				<p class="dim" style="font-size:80%">
+					Modules can also be sometimes run as a standalone program. When you run a Python module in the command line, 
+					the code in the module will be executed, just as if you imported it, but with the <span class="bright">__name__</span> 
+					set to <span class="bright">__main__</span>.
+				</p>
+				<pre>
+					<code style="font-size:90%">
+"""
+math_helper.py
+"""
+# additional codes here
+
+if __name__ == '__main__':
+   print('Did you call me?')
+					</code>
+				</pre>
+				<pre>
+					<code style="font-size:90%;margin-top:-50px;">
+$ python math_helper.py  # outputs "Did you call me?"
 					</code>
 				</pre>
 			</section>
@@ -1202,7 +1704,6 @@ Reveal.initialize({
 		{ src: 'assets/reveal.js/plugin/notes/notes.js', async: true }
 	]
 });
-
 </script>
 
 </body>
