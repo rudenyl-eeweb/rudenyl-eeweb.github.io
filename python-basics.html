@@ -1332,7 +1332,7 @@ with open('file.txt') as fp:
 					<code style="font-size:90%">
 # Open file for writing						
 fp = open("file.txt", "wb")   
-fp.write("Hello to the world!\n");
+fp.write("Hello to the world!\n")
 
 # close opened file (important)
 fp.close()
@@ -1680,6 +1680,171 @@ if __name__ == '__main__':
 $ python math_helper.py  # outputs "Did you call me?"
 					</code>
 				</pre>
+			</section>
+			</section>
+		</section>
+	
+		<!-- 
+		Objects and Classes
+		//-->
+		<section>
+			<h1>Objects<br>&amp;<br>Classes</h1>
+		</section>
+		<section>
+			<section>
+				<h3>Objects &amp; Classes</h3>
+				<br>
+				<p class="dim" style="font-size:90%">
+					Python is an object oriented programming language.
+					<br>
+					<span class="bright">Object</span> is simply a collection of data (<span class="bright">attributes</span>) 
+					and methods (<span class="bright">class functions</span>) that act on those data.
+					<br>
+					<br>
+					<span class="bright">Class</span> is the blueprint (a sketch or prototype) for the object.
+					<br>
+					<br>
+					An <span class="bright">object</span> is also called an <span class="bright">instance of a class</span> 
+					and the process of creating this object is called <span class="bright">instantiation</span>.
+				</p>
+			</section>
+			<section>
+				<h2>Class</h2>
+				<p class="dim" style="font-size:80%">
+					Like function definitions begin with the keyword def, in Python, we define a class using the keyword <span class="bright">class</span>.
+				</p>
+				<pre>
+					<code style="font-size:90%">
+# syntax
+class &lt;class_name&gt:
+    # attributes and functions
+					</code>
+				</pre>
+				<pre>
+					<code style="font-size:90%;margin-top:-70px;">
+# class definition
+class MyClass(object):
+    class_attribute = None  # also called "static" class variable
+	
+    def func(self [, params]):
+        self.instance_attribute = False
+        pass       # or returns something
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Class Instantiation</h3>
+				<p class="dim" style="font-size:80%">
+					Supposed we have a sample class:
+				</p>
+				<pre>
+					<code style="font-size:80%">
+class MathHelper(object):
+    PI = 3.1416
+	
+    def get_the_area_of_a_circle(self, radius):
+        return self.PI * radius ** 2
+					</code>
+				</pre>
+				<pre>
+					<code style="font-size:80%;margin-top:-70px;">
+# instantiate a MathHelper object
+m = MathHelper()
+
+# accessing class attribute
+print(m.PI)
+print(MathHelper.PI)  # statically accessed
+
+# calling a method
+print(m.get_the_area_of_a_circle(10))
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Constructors</h3>
+				<br>
+				<p class="dim" style="font-size:85%">
+					A <span class="bright">constructor</span> is a special method that is called when an object is instantiated.
+					Python relies on the constructor to perform tasks such as initializing (assigning values to) 
+					any instance attributes that the object will need when it starts.
+					<br>
+					<br>
+					The constructor method name is <span class="bright">__init()__</span>.
+					<br>
+					<br>
+					The constructor can accept arguments when necessary to create the object. 
+					When you create a class without a constructor, Python automatically creates a default constructor 
+					for you that doesn’t do anything.
+				</p>
+			</section>
+			<section>
+				<h3>Constructors</h3>
+				<p class="dim" style="font-size:85%">
+					The syntax for implementing it is shown below:					
+				</p>
+				<pre>
+					<code style="font-size:90%;">
+class &lt;class_name&gt;(object):
+    def __init__(self [, params, ...]):
+        # code block
+					</code>
+				</pre>
+				<pre>
+					<code style="font-size:90%;margin-top:-70px;">
+class SerialComm(object):
+    def __init__(self):
+        print('SerialComm is initialized.')
+
+# instantiate 
+board = SerialComm()   # prints "SerialComm is initialized."
+					</code>
+				</pre>
+				<p class="dim" style="font-size:80%;margin-top:-30px;">
+					Just like functions, constructors can be set with whatever parameters you want (positional, default, keyword, arbitrary).
+				</p>
+			</section>
+			<section>
+				<h3>Constructors</h3>
+				<p class="dim" style="font-size:85%">
+					To pass arguments to it, pass it in the instantiation call:
+				</p>
+				<pre>
+					<code style="font-size:90%;">
+class SerialComm(object):
+    def __init__(self, serial_port, baud_rate=9600):
+        self.serial_port = serial_port
+        self.baud_rate = baud_rate	
+
+        print('Serial port "{port}" is initialized at {rate} baud rate'.format(
+            rate=baud_rate,
+            port=serial_port
+            )
+        )
+
+# instantiate serial communication
+board = SerialComm(serial_port='COM3')
+print(board.baud_rate)
+					</code>
+				</pre>
+				<p class="dim" style="font-size:80%;margin-top:-30px;">
+					Unlike functions, constructors return anything but None.
+				</p>
+			</section>
+			<section>
+				<h3>Class: Things to Know</h3>
+				<br>
+				<ul class="dim" style="font-size:80%">
+					<li>there are two (2) types of attributes: &nbsp;<span class="bright">class</span> and <span class="bright">instance</span></li>
+					<li><span class="bright">class attributes</span> are shared by multiple objects instance of the same class</li>
+					<li><span class="bright">self</span> refers to the current instance of the object</li>
+					<li>Even though self is the first parameter, arguments passed to the method correspond only to the second parameter and up</li>
+					<li>you can access other attributes and functions via self too</li>
+					<li>The name of a constructor is always the same, <span class="bright">__init__()</span></li>
+					<li>Just like functions, constructors can be set with whatever parameters you want (positional, default, keyword, arbitrary)</li>
+					<li>Unlike functions, constructors <span class="bright">does not</span> return anything but None</li>
+					<li>The order of precedence when variables are accessed -- 1) <span class="bright">instance attributes</span>, 
+						then 2) <span class="bright">class attributes</span></li>
+					</ul>
 			</section>
 		</section>
     </div>
