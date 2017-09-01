@@ -1681,7 +1681,6 @@ $ python math_helper.py  # outputs "Did you call me?"
 					</code>
 				</pre>
 			</section>
-			</section>
 		</section>
 	
 		<!-- 
@@ -1845,6 +1844,67 @@ print(board.baud_rate)
 					<li>The order of precedence when variables are accessed -- 1) <span class="bright">instance attributes</span>, 
 						then 2) <span class="bright">class attributes</span></li>
 					</ul>
+			</section>
+		</section>
+	
+		<!-- 
+		Tips
+		//-->
+		<section>
+			<h1>Tips</h1>
+		</section>
+		<section>
+			<section>
+				<h2>Mutable vs. Immutable</h2>
+				<p class="dim" style="font-size:90%">
+					Not all python objects handle changes the same way. 
+					Some objects are mutable, meaning they can be altered.  
+					Others are immutable; they cannot be changed but rather return new objects when attempting to update.
+					Typically, immutable objects are <span class="bright">hashable</span>.
+				</p>
+				<table>
+				<tr>
+					<td width="50%" style="vertical-align:top">
+						<ul>
+							<li>numbers</li>
+							<li>strings</li>
+							<li>booleans</li>
+							<li>tuples</li>
+							<li>frozensets</li>
+							<li>bytes</li>
+						</ul>
+					</td>
+					<td width="50%" style="vertical-align:top">
+						<ul>
+							<li>lists</li>
+							<li>sets</li>
+							<li>dictionaries</li>
+							<li>bytearrays</li>
+							<li>user-defined classes <span class="dim">(unless specifically made immutable)</span></li>
+						</ul>
+					</td>
+				</tr>
+				</table>
+			</section>
+			<section>
+				<h2>Packing / Unpacking</h2>
+				<p class="dim" style="font-size:85%">
+					Variable <span class="bright">packing</span> in Python literally means packing several items/variables into one. 
+					Unpacking is sometimes called <span class="bright">destructuring</span>.
+				</p>
+				<pre>
+					<code style="font-size:90%;">
+# destructuring as values
+a, b = (1, 2)
+print(a)     # prints 1
+print(b)     # prints 2
+
+# destructuring as list (Python 3.x only)
+a, *b = 1,2,3,4,5
+print(a)     # prints 1
+print(b)     # prints [2,3,4,5]
+					</code>
+				</pre>
 			</section>
 		</section>
     </div>
