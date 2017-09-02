@@ -1855,7 +1855,7 @@ print(board.baud_rate)
 		</section>
 		<section>
 			<section>
-				<h2>Mutable vs. Immutable</h2>
+				<h2>Mutable <span style="text-transform:none">vs</span> Immutable</h2>
 				<p class="dim" style="font-size:90%">
 					Not all python objects handle changes the same way. 
 					Some objects are mutable, meaning they can be altered.  
@@ -1887,22 +1887,124 @@ print(board.baud_rate)
 				</table>
 			</section>
 			<section>
+				<h3>Mutable <span style="text-transform:none">vs</span> Immutable</h3>
+				<br>
+				<pre>
+					<code style="font-size:85%;max-height:500px;">
+# test on mutability
+arr = [1, 2, 3]
+arr[2] = "ready go!"
+print(arr)        # prints: [1, 2, "ready go"]
+
+_dict = {1: 'one'}
+_dict[2] = 'two'
+print(_dict)      # prints: {1: 'one', 2: 'two'}
+
+
+# test on immutability
+msg = "hello world!"
+msg[0] = 100      # displays an exception of type TypeError
+
+_tuple = (1,2)
+_tuple[0] = 100   # displays an exception of type TypeError
+					</code>
+				</pre>
+			</section>
+			<section>
 				<h2>Packing / Unpacking</h2>
-				<p class="dim" style="font-size:85%">
-					Variable <span class="bright">packing</span> in Python literally means packing several items/variables into one. 
-					Unpacking is sometimes called <span class="bright">destructuring</span>.
+				<p class="dim" style="font-size:80%">
+					<span class="bright">Variable unpacking</span> is a sequential destructuring or splitting of sequence items into several values.
+					<br>
+					<span class="bright">Packing</span>, on the other hand, is the combining of several arguments into one.
 				</p>
 				<pre>
-					<code style="font-size:90%;">
-# destructuring as values
+					<code style="font-size:80%">
+# assignment destructuring as values
 a, b = (1, 2)
-print(a)     # prints 1
-print(b)     # prints 2
+print(a)     # prints: 1
+print(b)     # prints: 2
 
-# destructuring as list (Python 3.x only)
+a, b = range(1,3)
+print(a)     # prints: 1
+print(b)     # prints: 2
+
+# argument packing
+def fn(a, b): print(a, b)
+
+args = [1, 2]
+fn(*args)    # prints: 1 2
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Variable Unpacking</h3>
+				<pre>
+					<code style="font-size:80%">
+# assignment destructuring as list (Python 3.x only)
 a, *b = 1,2,3,4,5
-print(a)     # prints 1
-print(b)     # prints [2,3,4,5]
+print(a)     # prints: 1
+print(b)     # prints: [2,3,4,5]
+
+
+a, *b, c = (1,2)
+print(a)     # prints: 1
+print(b)     # prints: []
+print(c)     # prints: 2
+
+# Ignoring values in destructuring assignments
+a, _ = [1, 2]
+print(a)     # prints: 1
+					</code>
+				</pre>
+				<p class="dim" style="font-size:80%;margin-top:-30px;">
+					If you're only interested in a given value, you can use <span class="bright">_</span> to indicate you aren’t interested on the rest of sequence. 
+					Note: <span class="bright">this will still set _</span>, just most people don’t use it as a variable.
+				</p>
+			</section>
+			<section>
+				<h3>Unpacking</h3>
+				<br>
+				<p class="dim" style="font-size:80%">
+					When you want to create a function that can accept any number of arguments, and not enforce the position or the name of 
+					the argument at <span class="bright">compile</span> time, it's possible and here's how:
+				</p>
+				<pre>
+					<code style="font-size:90%;max-height:550px;">
+# unpacking function arguments
+def fn(*args, **kwargs):
+    print(args, kwargs)
+	
+fn(1, 2, 3)                 # prints: (1, 2, 3) {}
+fn(a=1, b=2)                # prints: () {'a': 1, 'b': 2}
+fn(1,2, three=3, four=4)    # prints: (1, 2) {'four': 4, 'three': 3}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Packing arguments</h3>
+				<p class="dim" style="font-size:80%">
+					<span class="bright">Packing</span>, literally, is the combining of several arguments into one. 
+				</p>
+				<pre>
+					<code style="font-size:80%;max-height:550px;">
+# packing function arguments
+def fn(a, b):
+    print(a, b)
+	
+fn(1, 2)        # normally we supply values like this, prints 1 2 3
+
+# or pack assigned arguments
+args = [1, 2]
+fn(*args)       # prints: 1 2 3
+
+
+# using dictionary
+def fn2(param1=None, param2=None):
+    print(param1, param2)
+
+_dict = {'param1': 1, 'param2': 2}
+fn2()           # prints: None None
+fn2(**_dict)    # prints: 1 2
 					</code>
 				</pre>
 			</section>
